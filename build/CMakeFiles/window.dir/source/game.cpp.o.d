@@ -299,16 +299,8 @@ CMakeFiles/window.dir/source/game.cpp.o: \
  /usr/include/string.h /usr/include/strings.h \
  /usr/include/glm/gtc/type_ptr.inl \
  /home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/texture.h \
- /home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/resource_manager.h \
- /usr/include/c++/7/map /usr/include/c++/7/bits/stl_tree.h \
- /usr/include/c++/7/ext/aligned_buffer.h \
- /usr/include/c++/7/bits/stl_map.h /usr/include/c++/7/tuple \
- /usr/include/c++/7/utility /usr/include/c++/7/bits/stl_relops.h \
- /usr/include/c++/7/array /usr/include/c++/7/stdexcept \
- /usr/include/c++/7/bits/uses_allocator.h \
- /usr/include/c++/7/bits/invoke.h /usr/include/c++/7/bits/stl_multimap.h \
- /home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/sprite_renderer.h \
  /home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/game_object.h \
+ /home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/sprite_renderer.h \
  /usr/include/x86_64-linux-gnu/c++/7/bits/stdc++.h \
  /usr/include/c++/7/ciso646 /usr/include/c++/7/csetjmp \
  /usr/include/setjmp.h /usr/include/c++/7/csignal /usr/include/signal.h \
@@ -339,7 +331,8 @@ CMakeFiles/window.dir/source/game.cpp.o: \
  /usr/include/c++/7/bits/locale_classes.tcc \
  /usr/include/c++/7/system_error \
  /usr/include/x86_64-linux-gnu/c++/7/bits/error_constants.h \
- /usr/include/c++/7/streambuf /usr/include/c++/7/bits/streambuf.tcc \
+ /usr/include/c++/7/stdexcept /usr/include/c++/7/streambuf \
+ /usr/include/c++/7/bits/streambuf.tcc \
  /usr/include/c++/7/bits/basic_ios.h \
  /usr/include/c++/7/bits/locale_facets.h /usr/include/c++/7/cwctype \
  /usr/include/wctype.h /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
@@ -358,6 +351,7 @@ CMakeFiles/window.dir/source/game.cpp.o: \
  /usr/lib/gcc/x86_64-linux-gnu/7/include/stdbool.h \
  /usr/include/c++/7/ctgmath /usr/include/c++/7/cuchar \
  /usr/include/uchar.h /usr/include/c++/7/algorithm \
+ /usr/include/c++/7/utility /usr/include/c++/7/bits/stl_relops.h \
  /usr/include/c++/7/bits/stl_algo.h \
  /usr/include/c++/7/bits/algorithmfwd.h \
  /usr/include/c++/7/bits/stl_heap.h /usr/include/c++/7/bits/stl_tempbuf.h \
@@ -369,9 +363,11 @@ CMakeFiles/window.dir/source/game.cpp.o: \
  /usr/include/x86_64-linux-gnu/c++/7/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/7/bits/c++io.h \
  /usr/include/c++/7/bits/fstream.tcc /usr/include/c++/7/functional \
- /usr/include/c++/7/bits/std_function.h /usr/include/c++/7/bits/refwrap.h \
- /usr/include/c++/7/iomanip /usr/include/c++/7/locale \
- /usr/include/c++/7/bits/locale_facets_nonio.h \
+ /usr/include/c++/7/tuple /usr/include/c++/7/array \
+ /usr/include/c++/7/bits/uses_allocator.h \
+ /usr/include/c++/7/bits/invoke.h /usr/include/c++/7/bits/std_function.h \
+ /usr/include/c++/7/bits/refwrap.h /usr/include/c++/7/iomanip \
+ /usr/include/c++/7/locale /usr/include/c++/7/bits/locale_facets_nonio.h \
  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
  /usr/include/libintl.h /usr/include/c++/7/bits/locale_facets_nonio.tcc \
@@ -381,7 +377,10 @@ CMakeFiles/window.dir/source/game.cpp.o: \
  /usr/include/c++/7/iostream /usr/include/c++/7/iterator \
  /usr/include/c++/7/bits/stream_iterator.h /usr/include/c++/7/list \
  /usr/include/c++/7/bits/stl_list.h \
- /usr/include/c++/7/bits/allocated_ptr.h /usr/include/c++/7/bits/list.tcc \
+ /usr/include/c++/7/bits/allocated_ptr.h \
+ /usr/include/c++/7/ext/aligned_buffer.h /usr/include/c++/7/bits/list.tcc \
+ /usr/include/c++/7/map /usr/include/c++/7/bits/stl_tree.h \
+ /usr/include/c++/7/bits/stl_map.h /usr/include/c++/7/bits/stl_multimap.h \
  /usr/include/c++/7/memory /usr/include/c++/7/bits/stl_raw_storage_iter.h \
  /usr/include/c++/7/ext/concurrence.h \
  /usr/include/c++/7/bits/unique_ptr.h \
@@ -431,4 +430,5 @@ CMakeFiles/window.dir/source/game.cpp.o: \
  /usr/include/c++/7/unordered_map /usr/include/c++/7/bits/hashtable.h \
  /usr/include/c++/7/bits/hashtable_policy.h \
  /usr/include/c++/7/bits/unordered_map.h /usr/include/c++/7/unordered_set \
- /usr/include/c++/7/bits/unordered_set.h
+ /usr/include/c++/7/bits/unordered_set.h \
+ /home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/resource_manager.h
