@@ -12,7 +12,7 @@
 const float AspectRatio = 542.0 / 480.0;   // Height / Width
 const float Width = 30.0f;
 const glm::vec2 PLAYER_SIZE(Width, Width * AspectRatio);
-const float PLAYER_VELOCITY(500.0f);
+const float PLAYER_VELOCITY(400.0f);
 // 480/522
 class Game {
 public:	
@@ -21,6 +21,7 @@ public:
     float LeftBorder, RightBorder;
     float TopBorder, BottomBorder;
     float WallSize;
+    std::vector<std::vector<bool>> IsWall(std::vector<bool>);
     glm::vec3 cameraUp;
     glm::vec3 cameraFront;
     glm::vec3 cameraPos;
@@ -37,6 +38,7 @@ public:
     private:
     std::vector<GameObject> MakeMaze();
     bool valid(std::pair<int, int> P, int N, int M);
+    bool CollisionWithWall();
 };
 
 #endif
