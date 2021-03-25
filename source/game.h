@@ -14,6 +14,12 @@ const float Width = 30.0f;
 const glm::vec2 PLAYER_SIZE(Width, Width * AspectRatio);
 const float PLAYER_VELOCITY(400.0f);
 // 480/522
+struct Level {
+    std::vector<GameObject> Walls;
+    std::pair<int, int> Exit;
+    std::pair<int, int> ButtonEnemy;
+    std::pair<int, int> ButtonPowerUps;
+};
 class Game {
 public:	
     bool Keys[1024];
@@ -21,12 +27,21 @@ public:
     float LeftBorder, RightBorder;
     float TopBorder, BottomBorder;
     float WallSize;
+    float LightKeyUnpressed;
+    float LightOn;
     std::vector<std::vector<bool>> IsWall(std::vector<bool>);
     glm::vec3 cameraUp;
     glm::vec3 cameraFront;
     glm::vec3 cameraPos;
     Shader SpriteShader;
+
     std::vector<GameObject> Walls;
+    GameObject* EnemyButton;
+    GameObject* PowerUpButton;
+    bool EnemyButtonPressed;
+    bool PowerUpButtonPressed;
+    GameObject* ExitDoor;
+    
     Game(float width, float height);
     void LoadShaders();
     void LoadTextures();
@@ -36,9 +51,10 @@ public:
     void ProcessInput(float dt);
 
     private:
-    std::vector<GameObject> MakeMaze();
+    Level MakeMaze();
     bool valid(std::pair<int, int> P, int N, int M);
     bool CollisionWithWall();
+    bool CollisionWithDoor();
 };
 
 #endif

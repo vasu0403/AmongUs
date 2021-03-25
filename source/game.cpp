@@ -19,7 +19,10 @@ bool CheckCollision(GameObject &one, GameObject &two) {
 }
 
 Game::Game(float width, float height): Width(width), Height(height) { 
-    ;
+    this->LightKeyUnpressed = true;
+    this->LightOn = false;
+    this->EnemyButtonPressed = false;
+    this->PowerUpButtonPressed = false;
 }
 
 void Game::LoadShaders() {
@@ -36,12 +39,27 @@ void Game::LoadTextures() {
     ResourceManager::LoadTexture("../assets/textures/player.png", true, "player");
     ResourceManager::LoadTexture("../assets/textures/background4.jpg", false, "background");
     ResourceManager::LoadTexture("../assets/textures/wall3.jpg", false, "wall");
-    // this->cameraPos = glm::vec3(393.036f, 352.741f, 625.026f);
+    ResourceManager::LoadTexture("../assets/textures/button_unpressed_1.png", true, "button1");
+    ResourceManager::LoadTexture("../assets/textures/button_unpressed_2.png", true, "button2");
+    ResourceManager::LoadTexture("../assets/textures/button_pressed_1.png", true, "button_pressed1");
+    ResourceManager::LoadTexture("../assets/textures/button_pressed_2.png", true, "button_pressed2");
+    ResourceManager::LoadTexture("../assets/textures/door_closed.png", true, "door_closed");
 }
 void Game::LoadLevel() {
-    // glm::vec2 playerPos = glm::vec2(this->Width / 2.0f - PLAYER_SIZE.x / 2.0f, this->Height - PLAYER_SIZE.y);
-    this->WallSize = 50.0f;
-    this->Walls = MakeMaze();
+    
+    this->WallSize = 50.f;
+    int ButtonSize = 26.0f;
+    Level level = MakeMaze(); 
+    this->Walls = level.Walls;
+    pair<int, int> ButtonPos = level.ButtonEnemy;
+    this->EnemyButton = new GameObject(glm::vec2(ButtonPos.first * this->WallSize + (this->WallSize - ButtonSize) / 2, ButtonPos.second * this->WallSize + this->WallSize - ButtonSize), glm::vec2(ButtonSize, ButtonSize), ResourceManager::GetTexture("button1"));
+
+    ButtonPos = level.ButtonPowerUps;
+    this->PowerUpButton = new GameObject(glm::vec2(ButtonPos.first * this->WallSize + (this->WallSize - ButtonSize) / 2, ButtonPos.second * this->WallSize + this->WallSize - ButtonSize), glm::vec2(ButtonSize, ButtonSize), ResourceManager::GetTexture("button2"));
+    
+    pair<int, int> ExitDoorPos = level.Exit;
+    this->ExitDoor = new GameObject(glm::vec2(ExitDoorPos.first * this->WallSize, ExitDoorPos.second * this->WallSize), glm::vec2(15.0f, this->WallSize), ResourceManager::GetTexture("door_closed"));
+
     glm::vec2 playerPos = glm::vec2(0.0f, this->WallSize + 1.0f);
     Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("player"));
 }
@@ -73,6 +91,12 @@ void Game::Render() {
     this->SpriteShader.Use();
     this->SpriteShader.SetMatrix4("view", view);
     this->SpriteShader.SetVector2f("PlayerPos", Player->Position);
+
+    if(this->LightOn) {
+        this->SpriteShader.SetInteger("LightOn", 1);
+    } else {
+        this->SpriteShader.SetInteger("LightOn", 0);
+    }
     Renderer->drawSprite(ResourceManager::GetTexture("background"), glm::vec2(0.0f, 0.0f), glm::vec2(this->Width, this->Height), 0.0f);
     
     for(GameObject Wall: this->Walls) {
@@ -80,6 +104,10 @@ void Game::Render() {
     }
     
     Player->Draw(*Renderer);
+    this->EnemyButton->Draw(*Renderer);
+    this->PowerUpButton->Draw(*Renderer);
+    this->ExitDoor->Draw(*Renderer);
+
 
 }
 bool Game::CollisionWithWall() {
@@ -90,14 +118,29 @@ bool Game::CollisionWithWall() {
     }
     return false;
 }
+bool Game::CollisionWithDoor() {
+    if(this->ExitDoor->Destroyed == true) {
+        return false;
+    }
+    return CheckCollision(*Player, *this->ExitDoor);
+}
 void Game::ProcessInput(float dt) {
     glm::vec2 Direction1 = Player->Position - glm::vec2(this->cameraPos.x, this->cameraPos.y);
     float Distance1 = glm::length(Direction1);
     float velocity = PLAYER_VELOCITY * dt;
+    if(this->Keys[GLFW_KEY_E]) {
+        this->cameraPos.z -= velocity;
+    }
+    if(this->Keys[GLFW_KEY_F] == false) {
+        this->LightKeyUnpressed = true;
+    } else if(this->LightKeyUnpressed == true) {
+        this->LightKeyUnpressed = false;
+        this->LightOn = !this->LightOn;
+    }
     if(this->Keys[GLFW_KEY_D]) {
         if(Player->Position.x <= this->Width - Player->Size.x) {
             Player->Position.x += velocity;
-            if(CollisionWithWall()) {
+            if(CollisionWithWall() || CollisionWithDoor()) {
                 Player->Position.x -= velocity;
             }
         } else {
@@ -106,7 +149,7 @@ void Game::ProcessInput(float dt) {
     } else if(this->Keys[GLFW_KEY_A]) {
         if(Player->Position.x >= 0.0f) {
             Player->Position.x -= velocity;
-            if(CollisionWithWall()) {
+            if(CollisionWithWall() || CollisionWithDoor()) {
                 Player->Position.x += velocity;
             }
         } else {
@@ -115,7 +158,7 @@ void Game::ProcessInput(float dt) {
     } else if(this->Keys[GLFW_KEY_W]) {
         if(Player-> Position.y >= 0.0f) {
             Player->Position.y -= velocity;
-            if(CollisionWithWall()) {
+            if(CollisionWithWall() || CollisionWithDoor()) {
                 Player->Position.y += velocity;
             }
         } else {
@@ -124,7 +167,7 @@ void Game::ProcessInput(float dt) {
     } else if(this->Keys[GLFW_KEY_S]) {
         if(Player->Position.y <= this->Height - Player->Size.y) {
             Player->Position.y += velocity;
-            if(CollisionWithWall()) {
+            if(CollisionWithWall() || CollisionWithDoor()) {
                 Player->Position.y -= velocity;
             }
         } else {
@@ -152,16 +195,29 @@ void Game::ProcessInput(float dt) {
             }
         }
     }
+    // cout << Player->Position.x << " " << Player->Position.y << "  " << this->EnemyButton->Position.x << " " << this->EnemyButton->Position.y << "\n";
+    if(this->EnemyButtonPressed == false && CheckCollision(*Player, *this->EnemyButton)) {
+        this->EnemyButtonPressed = true;
+        this->EnemyButton->Sprite = ResourceManager::GetTexture("button_pressed1");
+        this->EnemyButton->Size.y -= 7.0f;
+        this->EnemyButton->Position.y += 7.0f;
+    }
+    if(this->PowerUpButtonPressed == false && CheckCollision(*Player, *this->PowerUpButton)) {
+        this->PowerUpButtonPressed = true;
+        this->PowerUpButton->Sprite = ResourceManager::GetTexture("button_pressed2");
+        this->PowerUpButton->Size.y -= 7.0f;
+        this->PowerUpButton->Position.y += 7.0f;
+    }
 }
 
 bool Valid(pair<int, int> P, int N, int M) {
     return P.first >= 1 && P.first < N - 1 && P.second >= 1 && P.second < M - 1;
 }
-std::vector<GameObject> Game::MakeMaze() {
+Level Game::MakeMaze() {
+    Level level;
     int N = this->Height / this->WallSize;
     int M = this->Width / this->WallSize;
     vector<vector<bool>> Vis(N, vector<bool> (M, false));
-    vector<vector<bool>> IsWall(N, vector<bool> (M, true));
     int dx[] = {2, -2, 0, 0};
     int dy[] = {0, 0, 2, -2};
 
@@ -192,53 +248,64 @@ std::vector<GameObject> Game::MakeMaze() {
         pair<int, int> Which = Neighbours[Ind];
         Vis[Which.first][Which.second] = true;
         S.push(Which); 
-
-        // remove wall between Which and Current
         int X, Y;
         if(Which.first == Current.first) {
             X = Which.first, Y = min(Which.second, Current.second) + 1;
         } else if(Which.second == Current.second) {
             X = min(Which.first, Current.first) + 1, Y = Which.second;
         }
-        IsWall[X][Y] = false;
+        Vis[X][Y] = true;
     }
-    IsWall[1][0] = false;
-    for(int i = 0; i < N; i++) {
-        
-        glm::vec2 Position = glm::vec2((M - 1) * this->WallSize, i * this->WallSize);
-        glm::vec2 Size = glm::vec2(this->WallSize, this->WallSize);
-        GameObject NewWall = GameObject(Position, Size, ResourceManager::GetTexture("wall"));
-        Walls.push_back(NewWall);
 
-        if(i != 1) {
-            Position = glm::vec2(0 * this->WallSize, i * this->WallSize);
-            Size = glm::vec2(this->WallSize, this->WallSize);
-            NewWall = GameObject(Position, Size, ResourceManager::GetTexture("wall"));
-            Walls.push_back(NewWall);
-        }
-        
-    }
-    for(int j = 1; j < M; j++) {
-        glm::vec2 Position = glm::vec2(j * this->WallSize, 0 * this->WallSize);
-        glm::vec2 Size = glm::vec2(this->WallSize, this->WallSize);
-        GameObject NewWall = GameObject(Position, Size, ResourceManager::GetTexture("wall"));
-        Walls.push_back(NewWall);
-
-        Position = glm::vec2(j * this->WallSize, (N - 1) * this->WallSize);
-        Size = glm::vec2(this->WallSize, this->WallSize);
-        NewWall = GameObject(Position, Size, ResourceManager::GetTexture("wall"));
-        Walls.push_back(NewWall);
-    }
+    // Exit Location
+    vector<int> PossibleExitPoints;
     for(int i = 1; i < N - 1; i++) {
-        for(int j = (i % 2) + 1; j < M - 1; j += 2) {
-            if(IsWall[i][j]) {
-                glm::vec2 Position = glm::vec2(j * this->WallSize, i * this->WallSize);
-                glm::vec2 Size = glm::vec2(this->WallSize, this->WallSize);
-                GameObject NewWall = GameObject(Position, Size, ResourceManager::GetTexture("wall"));
-                Walls.push_back(NewWall);
+        if(Vis[i][M - 2]) {
+            PossibleExitPoints.push_back(i);
+        }
+    }
+    int ExitPoint = PossibleExitPoints[rand() % PossibleExitPoints.size()];
+    level.Exit = make_pair(M - 1, ExitPoint);
+    
+
+    // Button Location
+    vector<pair<int, int>> WallBelow, NoWallBelow;              // prefer block with wall below
+    for(int i = N / 2; i < N - 2; i++) {
+        for(int j = M / 2; j < M - 1; j++) {
+            if(Vis[i][j] && !Vis[i + 1][j]) {
+                WallBelow.push_back({i, j});
+            } else if(Vis[i][j]) {
+                NoWallBelow.push_back({i, j});
             }
         }
-        for(int j = (i % 2) ^ 1 + 1; j < M - 1; j += 2) {
+    }
+    random_shuffle(WallBelow.begin(), WallBelow.end());
+    random_shuffle(NoWallBelow.begin(), NoWallBelow.end());
+
+    if(!WallBelow.empty()) {
+        pair<int, int> point = WallBelow.back();
+        WallBelow.pop_back();
+        level.ButtonEnemy = {point.second, point.first};
+    } else {
+        pair<int, int> point = NoWallBelow.back();
+        NoWallBelow.pop_back();
+        level.ButtonEnemy = {point.second, point.first};
+    }
+
+    if(!WallBelow.empty()) {
+        pair<int, int> point = WallBelow.back();
+        WallBelow.pop_back();
+        level.ButtonPowerUps = {point.second, point.first};
+    } else {
+        pair<int, int> point = NoWallBelow.back();
+        NoWallBelow.pop_back();
+        level.ButtonPowerUps = {point.second, point.first};
+    }
+
+    Vis[1][0] = true;
+    Vis[level.Exit.second][level.Exit.first] = true;
+    for(int i = 0; i < N; i++) {
+        for(int j = 0; j < M; j++) {
             if(!Vis[i][j]) {
                 glm::vec2 Position = glm::vec2(j * this->WallSize, i * this->WallSize);
                 glm::vec2 Size = glm::vec2(this->WallSize, this->WallSize);
@@ -246,7 +313,7 @@ std::vector<GameObject> Game::MakeMaze() {
                 Walls.push_back(NewWall);
             }
         }
-    }
-
-    return Walls;
+    }   
+    level.Walls = Walls;   
+    return level;
 }
