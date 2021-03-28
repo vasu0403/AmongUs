@@ -1,11 +1,13 @@
 #include "game.h"
 #include "resource_manager.h"
 #include "sprite_renderer.h"
+#include "enemy.h"
 #include <iostream>
 using namespace std;
 // Game-related State data
 SpriteRenderer  *Renderer;
 GameObject *Player;
+EnemyObject *Enemy;
 
 bool CheckCollision(GameObject &one, GameObject &two) {
     // collision x-axis?
@@ -36,7 +38,7 @@ void Game::LoadShaders() {
 
 }
 void Game::LoadTextures() {
-    ResourceManager::LoadTexture("../assets/textures/player.png", true, "player");
+    ResourceManager::LoadTexture("../assets/textures/player3.png", true, "player");
     ResourceManager::LoadTexture("../assets/textures/background4.jpg", false, "background");
     ResourceManager::LoadTexture("../assets/textures/wall3.jpg", false, "wall");
     ResourceManager::LoadTexture("../assets/textures/button_unpressed_1.png", true, "button1");
@@ -44,6 +46,7 @@ void Game::LoadTextures() {
     ResourceManager::LoadTexture("../assets/textures/button_pressed_1.png", true, "button_pressed1");
     ResourceManager::LoadTexture("../assets/textures/button_pressed_2.png", true, "button_pressed2");
     ResourceManager::LoadTexture("../assets/textures/door_closed.png", true, "door_closed");
+    ResourceManager::LoadTexture("../assets/textures/enemy1.png", true, "enemy");
 }
 void Game::LoadLevel() {
     
@@ -51,6 +54,8 @@ void Game::LoadLevel() {
     int ButtonSize = 26.0f;
     Level level = MakeMaze(); 
     this->Walls = level.Walls;
+    this->Vis = level.Vis;
+
     pair<int, int> ButtonPos = level.ButtonEnemy;
     this->EnemyButton = new GameObject(glm::vec2(ButtonPos.first * this->WallSize + (this->WallSize - ButtonSize) / 2, ButtonPos.second * this->WallSize + this->WallSize - ButtonSize), glm::vec2(ButtonSize, ButtonSize), ResourceManager::GetTexture("button1"));
 
@@ -60,8 +65,13 @@ void Game::LoadLevel() {
     pair<int, int> ExitDoorPos = level.Exit;
     this->ExitDoor = new GameObject(glm::vec2(ExitDoorPos.first * this->WallSize, ExitDoorPos.second * this->WallSize), glm::vec2(15.0f, this->WallSize), ResourceManager::GetTexture("door_closed"));
 
-    glm::vec2 playerPos = glm::vec2(0.0f, this->WallSize + 1.0f);
-    Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("player"));
+    vector<pair<float, float>> PlayArea = level.PlayArea;
+    
+    glm::vec2 EnemyPos = glm::vec2((ExitDoorPos.first - 1) * this->WallSize + (this->WallSize - PLAYER_SIZE.x) / 2,ExitDoorPos.second * this->WallSize + (this->WallSize - PLAYER_SIZE.y) / 2);
+    glm::vec2 PlayerPos = glm::vec2(0.0f + (this->WallSize - PLAYER_SIZE.x) / 2, this->WallSize  + (this ->WallSize - PLAYER_SIZE.y) / 2);
+
+    Player = new GameObject(PlayerPos, PLAYER_SIZE, ResourceManager::GetTexture("player"));
+    Enemy = new EnemyObject(EnemyPos, PLAYER_SIZE, ResourceManager::GetTexture("enemy"), make_pair(ExitDoorPos.second, ExitDoorPos.first - 1), this->Vis, this->Height / this->WallSize, this->Width / this->WallSize);
 }
 
 void Game::CameraInit() {
@@ -102,15 +112,18 @@ void Game::Render() {
     for(GameObject Wall: this->Walls) {
         Wall.Draw(*Renderer);
     }
+    this->ExitDoor->Draw(*Renderer);
     
     Player->Draw(*Renderer);
+
+    Enemy->Draw(*Renderer);
+
     this->EnemyButton->Draw(*Renderer);
     this->PowerUpButton->Draw(*Renderer);
-    this->ExitDoor->Draw(*Renderer);
-
 
 }
 bool Game::CollisionWithWall() {
+    // return false;
     for(GameObject Wall: this->Walls) {
         if(CheckCollision(Wall, *Player)) {
             return true;
@@ -210,6 +223,24 @@ void Game::ProcessInput(float dt) {
     }
 }
 
+void Game::UpdateEnemy(float dt) {
+    float velocity = PLAYER_VELOCITY * dt;
+    pair<int, int> EnemyCurPosition = make_pair(Enemy->Position.y / this->WallSize, Enemy->Position.x / this->WallSize);
+    glm::vec2 GoToPixel = glm::vec2(Enemy->GoToCell.second *this->WallSize + (this->WallSize - PLAYER_SIZE.x) / 2, Enemy->GoToCell.first * this->WallSize + (this->WallSize - PLAYER_SIZE.y) / 2);
+    if(Enemy->Position != GoToPixel) {
+        glm::vec2 Direction = normalize(GoToPixel - Enemy->Position);
+        if(Enemy->Position.x != GoToPixel.x) {
+            velocity = min(velocity, abs(Enemy->Position.x - GoToPixel.x));
+        } else if(Enemy->Position.y != GoToPixel.y) {
+            velocity = min(velocity, abs(Enemy->Position.y - GoToPixel.y));
+        }
+        Enemy->Position += glm::vec2(0.5 * velocity * Direction.x, 0.5 * velocity * Direction.y);
+        return;
+    }
+    pair<int, int> PlayerCurPosition = make_pair(Player->Position.y / this->WallSize, Player->Position.x / this->WallSize);
+    Enemy->GoToCell = Enemy->GoTo[PlayerCurPosition.first][PlayerCurPosition.second][EnemyCurPosition.first][EnemyCurPosition.second];
+}
+
 bool Valid(pair<int, int> P, int N, int M) {
     return P.first >= 1 && P.first < N - 1 && P.second >= 1 && P.second < M - 1;
 }
@@ -304,6 +335,7 @@ Level Game::MakeMaze() {
 
     Vis[1][0] = true;
     Vis[level.Exit.second][level.Exit.first] = true;
+    vector<pair<float, float>> PlayArea;
     for(int i = 0; i < N; i++) {
         for(int j = 0; j < M; j++) {
             if(!Vis[i][j]) {
@@ -311,9 +343,13 @@ Level Game::MakeMaze() {
                 glm::vec2 Size = glm::vec2(this->WallSize, this->WallSize);
                 GameObject NewWall = GameObject(Position, Size, ResourceManager::GetTexture("wall"));
                 Walls.push_back(NewWall);
+            } else {
+                PlayArea.push_back({j * this->WallSize, i * this->WallSize});
             }
         }
     }   
     level.Walls = Walls;   
+    level.PlayArea = PlayArea;
+    level.Vis = Vis;
     return level;
 }

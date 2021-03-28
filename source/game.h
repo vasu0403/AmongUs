@@ -19,6 +19,8 @@ struct Level {
     std::pair<int, int> Exit;
     std::pair<int, int> ButtonEnemy;
     std::pair<int, int> ButtonPowerUps;
+    std::vector<std::pair<float, float>> PlayArea;
+    std::vector<std::vector<bool>> Vis;
 };
 class Game {
 public:	
@@ -36,6 +38,7 @@ public:
     Shader SpriteShader;
 
     std::vector<GameObject> Walls;
+    std::vector<std::vector<bool>> Vis;
     GameObject* EnemyButton;
     GameObject* PowerUpButton;
     bool EnemyButtonPressed;
@@ -49,6 +52,7 @@ public:
     void CameraInit();
     void Render();
     void ProcessInput(float dt);
+    void UpdateEnemy(float dt);
 
     private:
     Level MakeMaze();

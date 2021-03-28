@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
         lastFrame = currentFrame;
         glfwPollEvents();
         AmongUs.ProcessInput(deltaTime);
-        // Breakout.Update(deltaTime);
+        AmongUs.UpdateEnemy(deltaTime);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         AmongUs.Render();

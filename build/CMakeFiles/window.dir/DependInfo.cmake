@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/enemy.cpp" "CMakeFiles/window.dir/source/enemy.cpp.o" "gcc" "CMakeFiles/window.dir/source/enemy.cpp.o.d"
   "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/game.cpp" "CMakeFiles/window.dir/source/game.cpp.o" "gcc" "CMakeFiles/window.dir/source/game.cpp.o.d"
   "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/game_object.cpp" "CMakeFiles/window.dir/source/game_object.cpp.o" "gcc" "CMakeFiles/window.dir/source/game_object.cpp.o.d"
   "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/main.cpp" "CMakeFiles/window.dir/source/main.cpp.o" "gcc" "CMakeFiles/window.dir/source/main.cpp.o.d"

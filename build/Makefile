@@ -179,6 +179,30 @@ libraries/glad/src/glad.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/glad.dir/build.make CMakeFiles/glad.dir/libraries/glad/src/glad.c.s
 .PHONY : libraries/glad/src/glad.c.s
 
+source/enemy.o: source/enemy.cpp.o
+.PHONY : source/enemy.o
+
+# target to build an object file
+source/enemy.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/enemy.cpp.o
+.PHONY : source/enemy.cpp.o
+
+source/enemy.i: source/enemy.cpp.i
+.PHONY : source/enemy.i
+
+# target to preprocess a source file
+source/enemy.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/enemy.cpp.i
+.PHONY : source/enemy.cpp.i
+
+source/enemy.s: source/enemy.cpp.s
+.PHONY : source/enemy.s
+
+# target to generate assembly for a file
+source/enemy.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/enemy.cpp.s
+.PHONY : source/enemy.cpp.s
+
 source/game.o: source/game.cpp.o
 .PHONY : source/game.o
 
@@ -361,6 +385,9 @@ help:
 	@echo "... libraries/glad/src/glad.o"
 	@echo "... libraries/glad/src/glad.i"
 	@echo "... libraries/glad/src/glad.s"
+	@echo "... source/enemy.o"
+	@echo "... source/enemy.i"
+	@echo "... source/enemy.s"
 	@echo "... source/game.o"
 	@echo "... source/game.i"
 	@echo "... source/game.s"
