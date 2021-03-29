@@ -7,8 +7,7 @@
 #include "texture.h"
 #include "game_object.h"
 #include <bits/stdc++.h>
-#include "ft2build.h"
-#include FT_FREETYPE_H
+#include "hud.h"
 
 
 const float AspectRatio = 542.0 / 480.0;   // Height / Width
@@ -23,13 +22,6 @@ struct Level {
     std::pair<int, int> ButtonPowerUps;
     std::vector<std::pair<float, float>> PlayArea;
     std::vector<std::vector<bool>> Vis;
-};
-
-struct Character {
-    unsigned int TextureID; // ID handle of the glyph texture
-    glm::ivec2   Size;      // Size of glyph
-    glm::ivec2   Bearing;   // Offset from baseline to left/top of glyph
-    unsigned int Advance;   // Horizontal offset to advance to next glyph
 };
 
 
@@ -48,6 +40,7 @@ public:
     glm::vec3 cameraPos;
     Shader SpriteShader;
     Shader TextShader;
+    Hud* HUD;
 
     std::vector<GameObject> Walls;
     std::vector<std::vector<bool>> Vis;

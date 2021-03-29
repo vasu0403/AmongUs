@@ -430,9 +430,10 @@ CMakeFiles/window.dir/source/main.cpp.o: \
  /usr/include/c++/7/unordered_map /usr/include/c++/7/bits/hashtable.h \
  /usr/include/c++/7/bits/hashtable_policy.h \
  /usr/include/c++/7/bits/unordered_map.h /usr/include/c++/7/unordered_set \
- /usr/include/c++/7/bits/unordered_set.h /usr/include/ft2build.h \
- /usr/include/freetype/config/ftheader.h /usr/include/freetype/freetype.h \
- /usr/include/freetype/config/ftconfig.h \
+ /usr/include/c++/7/bits/unordered_set.h \
+ /home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/hud.h \
+ /usr/include/ft2build.h /usr/include/freetype/config/ftheader.h \
+ /usr/include/freetype/freetype.h /usr/include/freetype/config/ftconfig.h \
  /usr/include/freetype/config/ftoption.h \
  /usr/include/freetype/config/ftstdlib.h /usr/include/c++/7/stdlib.h \
  /usr/include/freetype/config/integer-types.h \

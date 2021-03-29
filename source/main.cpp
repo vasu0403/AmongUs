@@ -54,7 +54,6 @@ int main(int argc, char *argv[])
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     AmongUs.LoadShaders();
     AmongUs.LoadTextures();
-    AmongUs.LoadFonts();
     AmongUs.LoadLevel();
     AmongUs.CameraInit();
     float deltaTime = 0.0f;

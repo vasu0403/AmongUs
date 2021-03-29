@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/window.dir/source/game.cpp.o.d"
   "CMakeFiles/window.dir/source/game_object.cpp.o"
   "CMakeFiles/window.dir/source/game_object.cpp.o.d"
+  "CMakeFiles/window.dir/source/hud.cpp.o"
+  "CMakeFiles/window.dir/source/hud.cpp.o.d"
   "CMakeFiles/window.dir/source/main.cpp.o"
   "CMakeFiles/window.dir/source/main.cpp.o.d"
   "CMakeFiles/window.dir/source/resource_manager.cpp.o"

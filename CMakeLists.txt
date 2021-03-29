@@ -7,7 +7,7 @@ project(window)
 # Source files
 set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/source/")
 set(LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libraries")
-set(SOURCES "${SRC_DIR}/main.cpp" "${SRC_DIR}/game.cpp" "${SRC_DIR}/resource_manager.cpp" "${SRC_DIR}/texture.cpp" "${SRC_DIR}/shader.cpp" "${SRC_DIR}/sprite_renderer.cpp" "${SRC_DIR}/game_object.cpp" "${SRC_DIR}/enemy.cpp")
+set(SOURCES "${SRC_DIR}/main.cpp" "${SRC_DIR}/game.cpp" "${SRC_DIR}/resource_manager.cpp" "${SRC_DIR}/texture.cpp" "${SRC_DIR}/shader.cpp" "${SRC_DIR}/sprite_renderer.cpp" "${SRC_DIR}/game_object.cpp" "${SRC_DIR}/enemy.cpp" "${SRC_DIR}/hud.cpp")
 
 # Executable definition and properties
 add_executable(${PROJECT_NAME} ${SOURCES})

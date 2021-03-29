@@ -251,6 +251,30 @@ source/game_object.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/game_object.cpp.s
 .PHONY : source/game_object.cpp.s
 
+source/hud.o: source/hud.cpp.o
+.PHONY : source/hud.o
+
+# target to build an object file
+source/hud.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/hud.cpp.o
+.PHONY : source/hud.cpp.o
+
+source/hud.i: source/hud.cpp.i
+.PHONY : source/hud.i
+
+# target to preprocess a source file
+source/hud.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/hud.cpp.i
+.PHONY : source/hud.cpp.i
+
+source/hud.s: source/hud.cpp.s
+.PHONY : source/hud.s
+
+# target to generate assembly for a file
+source/hud.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/hud.cpp.s
+.PHONY : source/hud.cpp.s
+
 source/main.o: source/main.cpp.o
 .PHONY : source/main.o
 
@@ -394,6 +418,9 @@ help:
 	@echo "... source/game_object.o"
 	@echo "... source/game_object.i"
 	@echo "... source/game_object.s"
+	@echo "... source/hud.o"
+	@echo "... source/hud.i"
+	@echo "... source/hud.s"
 	@echo "... source/main.o"
 	@echo "... source/main.i"
 	@echo "... source/main.s"
