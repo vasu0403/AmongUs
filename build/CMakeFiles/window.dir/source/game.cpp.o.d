@@ -430,6 +430,16 @@ CMakeFiles/window.dir/source/game.cpp.o: \
  /usr/include/c++/7/unordered_map /usr/include/c++/7/bits/hashtable.h \
  /usr/include/c++/7/bits/hashtable_policy.h \
  /usr/include/c++/7/bits/unordered_map.h /usr/include/c++/7/unordered_set \
- /usr/include/c++/7/bits/unordered_set.h \
+ /usr/include/c++/7/bits/unordered_set.h /usr/include/ft2build.h \
+ /usr/include/freetype/config/ftheader.h /usr/include/freetype/freetype.h \
+ /usr/include/freetype/config/ftconfig.h \
+ /usr/include/freetype/config/ftoption.h \
+ /usr/include/freetype/config/ftstdlib.h /usr/include/c++/7/stdlib.h \
+ /usr/include/freetype/config/integer-types.h \
+ /usr/include/freetype/config/public-macros.h \
+ /usr/include/freetype/config/mac-support.h \
+ /usr/include/freetype/fttypes.h /usr/include/freetype/ftsystem.h \
+ /usr/include/freetype/ftimage.h /usr/include/freetype/fterrors.h \
+ /usr/include/freetype/ftmoderr.h /usr/include/freetype/fterrdef.h \
  /home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/resource_manager.h \
  /home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/enemy.h

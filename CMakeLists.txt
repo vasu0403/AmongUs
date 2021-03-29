@@ -1,5 +1,7 @@
 # Project definition
 cmake_minimum_required(VERSION 3.1)
+
+
 project(window)
 
 # Source files
@@ -29,3 +31,8 @@ add_library("glad" "${GLAD_DIR}/src/glad.c")
 target_include_directories("glad" PRIVATE "${GLAD_DIR}/include")
 target_include_directories(${PROJECT_NAME} PRIVATE "${GLAD_DIR}/include")
 target_link_libraries(${PROJECT_NAME} "glad" "${CMAKE_DL_LIBS}")
+
+set(FREETYPE_INCLUDE_DIRS /usr/include/)
+set(FREETYPE_LIBRARY freetype)
+find_package(Freetype REQUIRED)
+target_link_libraries(window ${FREETYPE_LIBRARY})

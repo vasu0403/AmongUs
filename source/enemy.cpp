@@ -44,6 +44,5 @@ void EnemyObject::Draw(SpriteRenderer &renderer) {
 }
 
 bool EnemyObject::Valid(int X, int Y, const std::vector<std::vector<bool>> &Allowed, int N, int M) {
-    // cout << "HERE " << X << " " << Y << endl;
     return X >= 0 && X < N && Y >= 0 && Y < M && Allowed[X][Y]; 
 }

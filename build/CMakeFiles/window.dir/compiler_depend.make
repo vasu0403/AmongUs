@@ -1103,6 +1103,22 @@ CMakeFiles/window.dir/source/game.cpp.o: ../source/game.cpp \
   /usr/include/c++/7/bits/unordered_map.h \
   /usr/include/c++/7/unordered_set \
   /usr/include/c++/7/bits/unordered_set.h \
+  /usr/include/ft2build.h \
+  /usr/include/freetype/config/ftheader.h \
+  /usr/include/freetype/freetype.h \
+  /usr/include/freetype/config/ftconfig.h \
+  /usr/include/freetype/config/ftoption.h \
+  /usr/include/freetype/config/ftstdlib.h \
+  /usr/include/c++/7/stdlib.h \
+  /usr/include/freetype/config/integer-types.h \
+  /usr/include/freetype/config/public-macros.h \
+  /usr/include/freetype/config/mac-support.h \
+  /usr/include/freetype/fttypes.h \
+  /usr/include/freetype/ftsystem.h \
+  /usr/include/freetype/ftimage.h \
+  /usr/include/freetype/fterrors.h \
+  /usr/include/freetype/ftmoderr.h \
+  /usr/include/freetype/fterrdef.h \
   ../source/resource_manager.h \
   ../source/enemy.h
 
@@ -2019,6 +2035,22 @@ CMakeFiles/window.dir/source/main.cpp.o: ../source/main.cpp \
   /usr/include/c++/7/bits/unordered_map.h \
   /usr/include/c++/7/unordered_set \
   /usr/include/c++/7/bits/unordered_set.h \
+  /usr/include/ft2build.h \
+  /usr/include/freetype/config/ftheader.h \
+  /usr/include/freetype/freetype.h \
+  /usr/include/freetype/config/ftconfig.h \
+  /usr/include/freetype/config/ftoption.h \
+  /usr/include/freetype/config/ftstdlib.h \
+  /usr/include/c++/7/stdlib.h \
+  /usr/include/freetype/config/integer-types.h \
+  /usr/include/freetype/config/public-macros.h \
+  /usr/include/freetype/config/mac-support.h \
+  /usr/include/freetype/fttypes.h \
+  /usr/include/freetype/ftsystem.h \
+  /usr/include/freetype/ftimage.h \
+  /usr/include/freetype/fterrors.h \
+  /usr/include/freetype/ftmoderr.h \
+  /usr/include/freetype/fterrdef.h \
   ../source/resource_manager.h
 
 CMakeFiles/window.dir/source/resource_manager.cpp.o: ../source/resource_manager.cpp \
@@ -3350,6 +3382,20 @@ CMakeFiles/window.dir/source/texture.cpp.o: ../source/texture.cpp \
 
 ../source/resource_manager.cpp:
 
+/usr/include/freetype/ftmoderr.h:
+
+/usr/include/freetype/ftimage.h:
+
+/usr/include/freetype/fttypes.h:
+
+/usr/include/freetype/config/public-macros.h:
+
+/usr/include/freetype/config/integer-types.h:
+
+/usr/include/freetype/config/ftoption.h:
+
+/usr/include/freetype/freetype.h:
+
 /usr/include/c++/7/bits/unordered_map.h:
 
 /usr/include/c++/7/bits/hashtable.h:
@@ -3436,6 +3482,8 @@ CMakeFiles/window.dir/source/texture.cpp.o: ../source/texture.cpp \
 
 /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h:
 
+/usr/include/freetype/ftsystem.h:
+
 /usr/include/c++/7/iomanip:
 
 /usr/include/c++/7/bits/std_function.h:
@@ -3518,6 +3566,8 @@ CMakeFiles/window.dir/source/texture.cpp.o: ../source/texture.cpp \
 
 /usr/include/c++/7/bits/locale_classes.h:
 
+/usr/include/freetype/fterrors.h:
+
 /usr/include/c++/7/bits/ios_base.h:
 
 /usr/include/c++/7/ios:
@@ -3545,6 +3595,8 @@ CMakeFiles/window.dir/source/texture.cpp.o: ../source/texture.cpp \
 /usr/include/c++/7/bits/slice_array.h:
 
 /usr/include/x86_64-linux-gnu/sys/ucontext.h:
+
+/usr/include/ft2build.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/stack_t.h:
 
@@ -3748,6 +3800,8 @@ CMakeFiles/window.dir/source/texture.cpp.o: ../source/texture.cpp \
 
 /usr/include/c++/7/bits/ostream_insert.h:
 
+/usr/include/freetype/fterrdef.h:
+
 /usr/include/c++/7/bits/ostream.tcc:
 
 /usr/include/glm/vec2.hpp:
@@ -3889,6 +3943,8 @@ CMakeFiles/window.dir/source/texture.cpp.o: ../source/texture.cpp \
 /usr/include/stdc-predef.h:
 
 /usr/include/c++/7/cstdint:
+
+/usr/include/freetype/config/ftheader.h:
 
 /usr/include/c++/7/bits/memoryfwd.h:
 
@@ -4308,6 +4364,8 @@ CMakeFiles/window.dir/source/texture.cpp.o: ../source/texture.cpp \
 
 ../source/texture.h:
 
+/usr/include/freetype/config/mac-support.h:
+
 /usr/include/c++/7/string:
 
 /usr/include/c++/7/bits/functexcept.h:
@@ -4347,6 +4405,8 @@ CMakeFiles/window.dir/source/texture.cpp.o: ../source/texture.cpp \
 /usr/include/linux/errno.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
+
+/usr/include/freetype/config/ftconfig.h:
 
 /usr/include/c++/7/bits/regex_automaton.tcc:
 
@@ -4429,6 +4489,8 @@ CMakeFiles/window.dir/source/texture.cpp.o: ../source/texture.cpp \
 /usr/include/c++/7/stack:
 
 /usr/include/x86_64-linux-gnu/bits/errno.h:
+
+/usr/include/freetype/config/ftstdlib.h:
 
 /usr/include/x86_64-linux-gnu/asm/errno.h:
 
