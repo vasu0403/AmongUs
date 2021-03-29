@@ -8,7 +8,6 @@ using namespace std;
 SpriteRenderer  *Renderer;
 GameObject *Player;
 EnemyObject *Enemy;
-unsigned int CharacterVAO, CharacterVBO;
 
 bool CheckCollision(GameObject &one, GameObject &two) {
     // collision x-axis?
@@ -52,7 +51,10 @@ void Game::LoadTextures() {
     ResourceManager::LoadTexture("../assets/textures/button_pressed_1.png", true, "button_pressed1");
     ResourceManager::LoadTexture("../assets/textures/button_pressed_2.png", true, "button_pressed2");
     ResourceManager::LoadTexture("../assets/textures/door_closed.png", true, "door_closed");
+    // ResourceManager::LoadTexture("../assets/textures/door_open.png", true, "door_closed");
     ResourceManager::LoadTexture("../assets/textures/enemy1.png", true, "enemy");
+    ResourceManager::LoadTexture("../assets/textures/coin1.png", true, "coin");
+    ResourceManager::LoadTexture("../assets/textures/bomb1.png", true, "bomb");
 }
 void Game::LoadLevel() {
     
@@ -71,7 +73,7 @@ void Game::LoadLevel() {
     pair<int, int> ExitDoorPos = level.Exit;
     this->ExitDoor = new GameObject(glm::vec2(ExitDoorPos.first * this->WallSize, ExitDoorPos.second * this->WallSize), glm::vec2(15.0f, this->WallSize), ResourceManager::GetTexture("door_closed"));
 
-    vector<pair<float, float>> PlayArea = level.PlayArea;
+    this->PlayArea = level.PlayArea;
     
     glm::vec2 EnemyPos = glm::vec2((ExitDoorPos.first - 1) * this->WallSize + (this->WallSize - PLAYER_SIZE.x) / 2,ExitDoorPos.second * this->WallSize + (this->WallSize - PLAYER_SIZE.y) / 2);
     glm::vec2 PlayerPos = glm::vec2(0.0f + (this->WallSize - PLAYER_SIZE.x) / 2, this->WallSize  + (this ->WallSize - PLAYER_SIZE.y) / 2);
@@ -120,21 +122,26 @@ void Game::Render() {
     for(GameObject Wall: this->Walls) {
         Wall.Draw(*Renderer);
     }
+    // this->ExitDoor->Rotation = 100;
     this->ExitDoor->Draw(*Renderer);
+
+    for(GameObject powerUP: this->PowerUps) {
+        powerUP.Draw(*Renderer);
+    }
     
     Player->Draw(*Renderer);
 
-    Enemy->Draw(*Renderer);
+    if(Enemy->Alive == true) {
+        Enemy->Draw(*Renderer);
+    }
 
     this->EnemyButton->Draw(*Renderer);
     this->PowerUpButton->Draw(*Renderer);
 
-    HUD->RenderText(this->TextShader, "(C) LearnOpenGL.com", 540.0f, 570.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
-    HUD->RenderText(this->TextShader, "This is sample text", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
-
+    HUD->RenderText(this->TextShader, "This is sample text", 25.0f, 25.0f, 0.5f, glm::vec3(0.5, 0.8f, 0.2f));
 }
 bool Game::CollisionWithWall() {
-    // return false;
+    return false;
     for(GameObject Wall: this->Walls) {
         if(CheckCollision(Wall, *Player)) {
             return true;
@@ -225,16 +232,43 @@ void Game::ProcessInput(float dt) {
         this->EnemyButton->Sprite = ResourceManager::GetTexture("button_pressed1");
         this->EnemyButton->Size.y -= 7.0f;
         this->EnemyButton->Position.y += 7.0f;
+        Enemy->Alive = false;
+
+        // open the door if both tasks are completed
+        if(this->PowerUpButtonPressed == true) {
+            this->ExitDoor->Destroyed = true;
+        }
     }
     if(this->PowerUpButtonPressed == false && CheckCollision(*Player, *this->PowerUpButton)) {
         this->PowerUpButtonPressed = true;
         this->PowerUpButton->Sprite = ResourceManager::GetTexture("button_pressed2");
         this->PowerUpButton->Size.y -= 7.0f;
         this->PowerUpButton->Position.y += 7.0f;
+        
+        // open the door if both tasks are completed
+        if(this->EnemyButtonPressed == true) {
+            this->ExitDoor->Destroyed = true;
+        }
+        random_shuffle(this->PlayArea.begin(), this->PlayArea.end());
+        for(int i = 0; i < 10; i++) {
+            glm::vec2 Size = glm::vec2(this->WallSize - 14, this->WallSize - 14);
+            glm::vec2 Position = glm::vec2(7 + this->PlayArea[i].first, 7 + this->PlayArea[i].second);
+            GameObject NewCoin = GameObject(Position, Size, ResourceManager::GetTexture("coin"));
+            PowerUps.push_back(NewCoin);
+        }
+        for(int i = 10; i < 20; i++) {
+            glm::vec2 Size = glm::vec2(this->WallSize - 14, this->WallSize - 14);
+            glm::vec2 Position = glm::vec2(7 + this->PlayArea[i].first, 7 + this->PlayArea[i].second);
+            GameObject NewBomb = GameObject(Position, Size, ResourceManager::GetTexture("bomb"));
+            PowerUps.push_back(NewBomb);
+        }
     }
 }
 
 void Game::UpdateEnemy(float dt) {
+    if(Enemy->Alive == false) {
+        return;
+    }
     float velocity = PLAYER_VELOCITY * dt;
     pair<int, int> EnemyCurPosition = make_pair(Enemy->Position.y / this->WallSize, Enemy->Position.x / this->WallSize);
     glm::vec2 GoToPixel = glm::vec2(Enemy->GoToCell.second *this->WallSize + (this->WallSize - PLAYER_SIZE.x) / 2, Enemy->GoToCell.first * this->WallSize + (this->WallSize - PLAYER_SIZE.y) / 2);
@@ -350,8 +384,8 @@ Level Game::MakeMaze() {
     for(int i = 0; i < N; i++) {
         for(int j = 0; j < M; j++) {
             if(!Vis[i][j]) {
-                glm::vec2 Position = glm::vec2(j * this->WallSize, i * this->WallSize);
                 glm::vec2 Size = glm::vec2(this->WallSize, this->WallSize);
+                glm::vec2 Position = glm::vec2(j * this->WallSize, i * this->WallSize);
                 GameObject NewWall = GameObject(Position, Size, ResourceManager::GetTexture("wall"));
                 Walls.push_back(NewWall);
             } else {

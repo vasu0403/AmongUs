@@ -46,9 +46,11 @@ public:
     std::vector<std::vector<bool>> Vis;
     GameObject* EnemyButton;
     GameObject* PowerUpButton;
-    bool EnemyButtonPressed;
-    bool PowerUpButtonPressed;
-    GameObject* ExitDoor;
+    bool EnemyButtonPressed;                            // whether enemy button bettun has been pressed (true) or not (false)
+    bool PowerUpButtonPressed;                          // whether power button bettun has been pressed (true) or not (false)
+    GameObject* ExitDoor;                             
+    std::vector<std::pair<float, float>> PlayArea;      // tiles on which the player can move
+    std::vector<GameObject> PowerUps;                   // coins and bomb objects
     
     Game(float width, float height);
     void LoadShaders();
