@@ -170,10 +170,6 @@ void Game::Render() {
     
     this->EnemyButton->Draw(*Renderer);
     this->PowerUpButton->Draw(*Renderer);
-    // this->TextShader.Use();
-    // Renderer->drawSprite(ResourceManager::GetTexture("hud"), glm::vec2(0.0f, 0.0f), glm::vec2(this->WallSize, this->WallSize), 0.0f);
-
-    // HUD->RenderText(this->TextShader, "This is sample text", 25.0f, 25.0f, 0.5f, glm::vec3(0.5, 0.8f, 0.2f));
     HUD->Display(Player->Lives, this->PowerUpButtonPressed, this->EnemyButtonPressed, this->LightOn, this->TimeLeft, Player->Score);
 }
 bool Game::CollisionWithWall() {
@@ -277,6 +273,7 @@ void Game::ProcessInput(float dt) {
         if(this->PowerUpButtonPressed == true) {
             this->ExitDoor->Destroyed = true;
         }
+        system("aplay ../assets/sounds/button.wav &");
     }
     if(this->PowerUpButtonPressed == false && CheckCollision(*Player, *this->PowerUpButton)) {
         this->PowerUpButtonPressed = true;
@@ -303,11 +300,15 @@ void Game::ProcessInput(float dt) {
             NewBomb.Score = -1;
             PowerUps.push_back(NewBomb);
         }
+        system("aplay ../assets/sounds/button.wav &");
     }
     for(GameObject& item: PowerUps) {
         if(!item.Destroyed && CheckCollision(item, *Player)) {
             item.Destroyed = true;
             Player->Score += item.Score;
+            if(item.Score > 0) {
+                system("aplay ../assets/sounds/coin.wav &");
+            }
         }
     }
     
@@ -321,11 +322,13 @@ void Game::Update(float dt) {
         if(glfwGetTime() - Enemy->LastAttack >= GapBetweenAttacks && CheckCollision(*Enemy, *Player)) {
             Enemy->LastAttack = glfwGetTime();
             Player->Lives -= 1;
+            system("aplay ../assets/sounds/knife_stab.wav &");
         }
         UpdateEnemy(dt);
         if(glfwGetTime() - Enemy->LastAttack >= GapBetweenAttacks && CheckCollision(*Enemy, *Player)) {
             Enemy->LastAttack = glfwGetTime();
             Player->Lives -= 1;
+            system("aplay ../assets/sounds/knife_stab.wav &");
         }
     }
     
