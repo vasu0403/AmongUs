@@ -14,6 +14,7 @@ const float AspectRatio = 542.0 / 480.0;   // Height / Width
 const float Width = 30.0f;
 const glm::vec2 PLAYER_SIZE(Width, Width * AspectRatio);
 const float PLAYER_VELOCITY(400.0f);
+const float GapBetweenAttacks = 1;
 // 480/522
 struct Level {
     std::vector<GameObject> Walls;
@@ -41,6 +42,8 @@ public:
     Shader SpriteShader;
     Shader TextShader;
     Hud* HUD;
+    int TimeLeft;
+    float LastTick;
 
     std::vector<GameObject> Walls;
     std::vector<std::vector<bool>> Vis;
@@ -52,7 +55,7 @@ public:
     std::vector<std::pair<float, float>> PlayArea;      // tiles on which the player can move
     std::vector<GameObject> PowerUps;                   // coins and bomb objects
     
-    Game(float width, float height);
+    Game(float width, float height, int timeLeft);
     void LoadShaders();
     void LoadTextures();
     void LoadFonts();
@@ -60,12 +63,13 @@ public:
     void CameraInit();
     void Render();
     void ProcessInput(float dt);
-    void UpdateEnemy(float dt);
+    void Update(float dt);
 
     private:
     Level MakeMaze();
     bool valid(std::pair<int, int> P, int N, int M);
     bool CollisionWithWall();
+    void UpdateEnemy(float dt);
     bool CollisionWithDoor();
 };
 

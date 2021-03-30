@@ -18,7 +18,10 @@ struct Character {
 class Hud {
     public:
     unsigned int VAO, VBO;
-    Hud();
-    void RenderText(Shader &shader, std::string text, float x, float y, float scale, glm::vec3 color);
+    Shader TextShader;
+    Hud(Shader &textShader);
+    void Display(int LivesLeft, bool PowerUpTask, bool EnemyTask, bool Light, int TimeLeft, int score);
+    private:
+    void RenderText(std::string text, float x, float y, float scale, glm::vec3 color);
 };
 #endif

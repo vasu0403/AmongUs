@@ -12,7 +12,7 @@ const  float SCREEN_HEIGHT = 1000;
 const  float SCREEN_WIDTH = 1550;
 
 
-Game AmongUs(SCREEN_WIDTH, SCREEN_HEIGHT);
+Game AmongUs(SCREEN_WIDTH, SCREEN_HEIGHT, 100);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
         lastFrame = currentFrame;
         glfwPollEvents();
         AmongUs.ProcessInput(deltaTime);
-        AmongUs.UpdateEnemy(deltaTime);
+        AmongUs.Update(deltaTime);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         AmongUs.Render();

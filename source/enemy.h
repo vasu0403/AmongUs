@@ -9,6 +9,7 @@ class EnemyObject : public GameObject {
     public:
     std::pair<int, int> GoToCell;
     bool Alive;
+    float LastAttack;
     std::pair<int, int> GoTo[40][40][40][40];
 
     EnemyObject();

@@ -299,6 +299,30 @@ source/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/main.cpp.s
 .PHONY : source/main.cpp.s
 
+source/player.o: source/player.cpp.o
+.PHONY : source/player.o
+
+# target to build an object file
+source/player.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/player.cpp.o
+.PHONY : source/player.cpp.o
+
+source/player.i: source/player.cpp.i
+.PHONY : source/player.i
+
+# target to preprocess a source file
+source/player.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/player.cpp.i
+.PHONY : source/player.cpp.i
+
+source/player.s: source/player.cpp.s
+.PHONY : source/player.s
+
+# target to generate assembly for a file
+source/player.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/player.cpp.s
+.PHONY : source/player.cpp.s
+
 source/resource_manager.o: source/resource_manager.cpp.o
 .PHONY : source/resource_manager.o
 
@@ -424,6 +448,9 @@ help:
 	@echo "... source/main.o"
 	@echo "... source/main.i"
 	@echo "... source/main.s"
+	@echo "... source/player.o"
+	@echo "... source/player.i"
+	@echo "... source/player.s"
 	@echo "... source/resource_manager.o"
 	@echo "... source/resource_manager.i"
 	@echo "... source/resource_manager.s"

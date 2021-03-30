@@ -2,11 +2,12 @@
 #include "resource_manager.h"
 #include "sprite_renderer.h"
 #include "enemy.h"
+#include "player.h"
 #include <iostream>
 using namespace std;
 // Game-related State data
 SpriteRenderer  *Renderer;
-GameObject *Player;
+PlayerObject *Player;
 EnemyObject *Enemy;
 
 bool CheckCollision(GameObject &one, GameObject &two) {
@@ -20,11 +21,12 @@ bool CheckCollision(GameObject &one, GameObject &two) {
     return collisionX && collisionY;
 }
 
-Game::Game(float width, float height): Width(width), Height(height) { 
+Game::Game(float width, float height, int timeLeft): Width(width), Height(height), TimeLeft(timeLeft) { 
     this->LightKeyUnpressed = true;
     this->LightOn = false;
     this->EnemyButtonPressed = false;
     this->PowerUpButtonPressed = false;
+    this->LastTick = 0;
 }
 
 void Game::LoadShaders() {
@@ -55,6 +57,7 @@ void Game::LoadTextures() {
     ResourceManager::LoadTexture("../assets/textures/enemy1.png", true, "enemy");
     ResourceManager::LoadTexture("../assets/textures/coin1.png", true, "coin");
     ResourceManager::LoadTexture("../assets/textures/bomb1.png", true, "bomb");
+    ResourceManager::LoadTexture("../assets/textures/hud_background.jpg", true, "hud");
 }
 void Game::LoadLevel() {
     
@@ -78,10 +81,10 @@ void Game::LoadLevel() {
     glm::vec2 EnemyPos = glm::vec2((ExitDoorPos.first - 1) * this->WallSize + (this->WallSize - PLAYER_SIZE.x) / 2,ExitDoorPos.second * this->WallSize + (this->WallSize - PLAYER_SIZE.y) / 2);
     glm::vec2 PlayerPos = glm::vec2(0.0f + (this->WallSize - PLAYER_SIZE.x) / 2, this->WallSize  + (this ->WallSize - PLAYER_SIZE.y) / 2);
 
-    Player = new GameObject(PlayerPos, PLAYER_SIZE, ResourceManager::GetTexture("player"));
+    Player = new PlayerObject(PlayerPos, PLAYER_SIZE, ResourceManager::GetTexture("player"));
     Enemy = new EnemyObject(EnemyPos, PLAYER_SIZE, ResourceManager::GetTexture("enemy"), make_pair(ExitDoorPos.second, ExitDoorPos.first - 1), this->Vis, this->Height / this->WallSize, this->Width / this->WallSize);
 
-    HUD = new Hud();
+    HUD = new Hud(this->TextShader);
 }
 
 void Game::CameraInit() {
@@ -125,8 +128,10 @@ void Game::Render() {
     // this->ExitDoor->Rotation = 100;
     this->ExitDoor->Draw(*Renderer);
 
-    for(GameObject powerUP: this->PowerUps) {
-        powerUP.Draw(*Renderer);
+    for(GameObject& item: this->PowerUps) {
+        if(item.Destroyed == false) {
+            item.Draw(*Renderer);
+        }
     }
     
     Player->Draw(*Renderer);
@@ -134,14 +139,17 @@ void Game::Render() {
     if(Enemy->Alive == true) {
         Enemy->Draw(*Renderer);
     }
-
+    
     this->EnemyButton->Draw(*Renderer);
     this->PowerUpButton->Draw(*Renderer);
+    // this->TextShader.Use();
+    // Renderer->drawSprite(ResourceManager::GetTexture("hud"), glm::vec2(0.0f, 0.0f), glm::vec2(this->WallSize, this->WallSize), 0.0f);
 
-    HUD->RenderText(this->TextShader, "This is sample text", 25.0f, 25.0f, 0.5f, glm::vec3(0.5, 0.8f, 0.2f));
+    // HUD->RenderText(this->TextShader, "This is sample text", 25.0f, 25.0f, 0.5f, glm::vec3(0.5, 0.8f, 0.2f));
+    HUD->Display(Player->Lives, this->PowerUpButtonPressed, this->EnemyButtonPressed, this->LightOn, this->TimeLeft, Player->Score);
 }
 bool Game::CollisionWithWall() {
-    return false;
+    // return false;
     for(GameObject Wall: this->Walls) {
         if(CheckCollision(Wall, *Player)) {
             return true;
@@ -254,14 +262,41 @@ void Game::ProcessInput(float dt) {
             glm::vec2 Size = glm::vec2(this->WallSize - 14, this->WallSize - 14);
             glm::vec2 Position = glm::vec2(7 + this->PlayArea[i].first, 7 + this->PlayArea[i].second);
             GameObject NewCoin = GameObject(Position, Size, ResourceManager::GetTexture("coin"));
+            NewCoin.Score = 1;
             PowerUps.push_back(NewCoin);
         }
         for(int i = 10; i < 20; i++) {
             glm::vec2 Size = glm::vec2(this->WallSize - 14, this->WallSize - 14);
             glm::vec2 Position = glm::vec2(7 + this->PlayArea[i].first, 7 + this->PlayArea[i].second);
             GameObject NewBomb = GameObject(Position, Size, ResourceManager::GetTexture("bomb"));
+            NewBomb.Score = -1;
             PowerUps.push_back(NewBomb);
         }
+    }
+    for(GameObject& item: PowerUps) {
+        if(!item.Destroyed && CheckCollision(item, *Player)) {
+            item.Destroyed = true;
+            Player->Score += item.Score;
+        }
+    }
+}
+
+void Game::Update(float dt) {
+    if(Enemy->Alive == true) {
+        if(glfwGetTime() - Enemy->LastAttack >= GapBetweenAttacks && CheckCollision(*Enemy, *Player)) {
+            Enemy->LastAttack = glfwGetTime();
+            Player->Lives -= 1;
+        }
+        UpdateEnemy(dt);
+        if(glfwGetTime() - Enemy->LastAttack >= GapBetweenAttacks && CheckCollision(*Enemy, *Player)) {
+            Enemy->LastAttack = glfwGetTime();
+            Player->Lives -= 1;
+        }
+    }
+    float CurTime = glfwGetTime();
+    if(CurTime - LastTick >= 1) {
+        LastTick = CurTime;
+        this->TimeLeft -= 1;
     }
 }
 

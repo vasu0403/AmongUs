@@ -1,12 +1,15 @@
 #include "hud.h"
+#include "bits/stdc++.h"
+using namespace std;
 std::map<GLchar, Character> Characters;
-Hud::Hud() {
+Hud::Hud(Shader& textShader) {
+    this->TextShader = textShader;
     FT_Library ft;
     if (FT_Init_FreeType(&ft)) {
         std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
     }
     FT_Face face;
-    if (FT_New_Face(ft, "../assets/fonts/Antonio-Regular.ttf", 0, &face)) {
+    if (FT_New_Face(ft, "../assets/fonts/Antonio-Bold.ttf", 0, &face)) {
         std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
     }
 
@@ -67,10 +70,48 @@ Hud::Hud() {
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
+void Hud::Display(int livesLeft, bool powerUpTask, bool enemyTask, bool light, int timeLeft, int score) {
+    string Lives = "Lives left: ";
+    string LivesLeft_string = to_string(livesLeft);
+    Lives += LivesLeft_string;
+    
+    string LightStatus = "Light: ";
+    if(light) {
+        LightStatus += "ON";
+    } else {
+        LightStatus += "OFF";
+    }
+    
+    string Task1 = "Task: Press power up button: ";
+    string Task2 = "Task: Vaporize Imposter: ";
+    if(powerUpTask) {
+        Task1 += "Completed";
+    } else {
+        Task1 += "TO DO!";
+    }
+    if(enemyTask) {
+        Task2 += "Completed";
+    } else {
+        Task2 += "TO DO!";
+    }
+    
+    string Timer = "Time Left: ";
+    string TimeLeft_string = to_string(timeLeft);
+    Timer += TimeLeft_string;
 
-void Hud::RenderText(Shader &shader, std::string text, float x, float y, float scale, glm::vec3 color) {
-    shader.Use();
-    glUniform3f(glGetUniformLocation(shader.ID, "textColor"), color.x, color.y, color.z);
+    string Score = "Score: ";
+    string score_string = to_string(score);
+    Score += score_string;
+    RenderText(Lives, 25.0f, 110.0f, 0.4f, glm::vec3(0.8f, 0.8f, 0.8f));
+    RenderText(Score, 25.0f, 90.0f, 0.4f, glm::vec3(0.8f, 0.8f, 0.8f));
+    RenderText(Timer, 25.0f, 70.0f, 0.4f, glm::vec3(0.8f, 0.8f, 0.8f));
+    RenderText(LightStatus, 25.0f, 50.0f, 0.4f, glm::vec3(0.8f, 0.8f, 0.8f));
+    RenderText(Task1, 25.0f, 30.0f, 0.4f, glm::vec3(0.8f, 0.8f, 0.8f));
+    RenderText(Task2, 25.0f, 10.0f, 0.4f, glm::vec3(0.8f, 0.8f, 0.8f));
+}
+void Hud::RenderText(std::string text, float x, float y, float scale, glm::vec3 color) {
+    this->TextShader.Use();
+    glUniform3f(glGetUniformLocation(this->TextShader.ID, "textColor"), color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
     glBindVertexArray(VAO);
 

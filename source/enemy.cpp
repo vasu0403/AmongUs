@@ -1,8 +1,8 @@
 #include "enemy.h"
 using namespace std;
-EnemyObject::EnemyObject(): GameObject(), Alive(true), GoToCell({-1, -1}) {
+EnemyObject::EnemyObject(): GameObject(), Alive(true), GoToCell({-1, -1}), LastAttack(-100) {
 }
-EnemyObject::EnemyObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, pair<int, int> goToCell, const vector<vector<bool>> &Allowed, int N, int M, glm::vec3 color, glm::vec2 velocity): GameObject(pos, size, sprite, color, velocity), Alive(true), GoToCell(goToCell) {
+EnemyObject::EnemyObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, pair<int, int> goToCell, const vector<vector<bool>> &Allowed, int N, int M, glm::vec3 color, glm::vec2 velocity): GameObject(pos, size, sprite, color, velocity), Alive(true), GoToCell(goToCell), LastAttack(-100) {
     for(int X = 0; X < N; X++) {
         for(int Y = 0; Y < M; Y++) {
             if(Allowed[X][Y]) {
