@@ -44,6 +44,9 @@ public:
     Hud* HUD;
     int TimeLeft;
     float LastTick;
+    bool GameLost;
+    bool GameWon;
+    float LightScoreTimeLast;
 
     std::vector<GameObject> Walls;
     std::vector<std::vector<bool>> Vis;

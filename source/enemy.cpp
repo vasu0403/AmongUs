@@ -10,7 +10,6 @@ EnemyObject::EnemyObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, pair<i
             }
         }
     }
-    cout << "Finished " << "\n";
 }
 
 void EnemyObject::FillGoToCells(int X, int Y, int N, int M, const vector<vector<bool>> &Allowed) {

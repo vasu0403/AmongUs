@@ -27,6 +27,9 @@ Game::Game(float width, float height, int timeLeft): Width(width), Height(height
     this->EnemyButtonPressed = false;
     this->PowerUpButtonPressed = false;
     this->LastTick = 0;
+    this->GameLost = false;
+    this->GameWon = false;
+    this->LightScoreTimeLast = glfwGetTime();
 }
 
 void Game::LoadShaders() {
@@ -53,11 +56,10 @@ void Game::LoadTextures() {
     ResourceManager::LoadTexture("../assets/textures/button_pressed_1.png", true, "button_pressed1");
     ResourceManager::LoadTexture("../assets/textures/button_pressed_2.png", true, "button_pressed2");
     ResourceManager::LoadTexture("../assets/textures/door_closed.png", true, "door_closed");
-    // ResourceManager::LoadTexture("../assets/textures/door_open.png", true, "door_closed");
     ResourceManager::LoadTexture("../assets/textures/enemy1.png", true, "enemy");
     ResourceManager::LoadTexture("../assets/textures/coin1.png", true, "coin");
     ResourceManager::LoadTexture("../assets/textures/bomb1.png", true, "bomb");
-    ResourceManager::LoadTexture("../assets/textures/hud_background.jpg", true, "hud");
+    ResourceManager::LoadTexture("../assets/textures/lost3.png", true, "lost_screen");
 }
 void Game::LoadLevel() {
     
@@ -115,6 +117,30 @@ void Game::Render() {
     this->SpriteShader.SetMatrix4("view", view);
     this->SpriteShader.SetVector2f("PlayerPos", Player->Position);
 
+    if(this->GameLost) {
+        this->cameraPos = glm::vec3(0.0f + (this->WallSize - PLAYER_SIZE.x) / 2, this->WallSize  + (this ->WallSize - PLAYER_SIZE.y) / 2, -625.026f);
+        this->cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
+        this->cameraUp = glm::vec3(0.0f, -1.0f, 0.0f);
+        this->SpriteShader.SetInteger("LightOn", 1);
+        float AspectRatio = 502.0f / 891.0f;
+        float Width = 880.0f;
+        Renderer->drawSprite(ResourceManager::GetTexture("lost_screen"), glm::vec2(0.0f, 0.0f), glm::vec2(Width, Width * AspectRatio), 0.0f);
+        HUD->GameLost();
+        // HUD->Display(Player->Lives, this->PowerUpButtonPressed, this->EnemyButtonPressed, this->LightOn, this->TimeLeft, Player->Score);
+        return;
+    }
+    if(this->GameWon) {
+        this->cameraPos = glm::vec3(0.0f + (this->WallSize - PLAYER_SIZE.x) / 2, this->WallSize  + (this ->WallSize - PLAYER_SIZE.y) / 2, -625.026f);
+        this->cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
+        this->cameraUp = glm::vec3(0.0f, -1.0f, 0.0f);
+        this->SpriteShader.SetInteger("LightOn", 1);
+        float AspectRatio = 502.0f / 891.0f;
+        float Width = 880.0f;
+        Renderer->drawSprite(ResourceManager::GetTexture("lost_screen"), glm::vec2(0.0f, 0.0f), glm::vec2(Width, Width * AspectRatio), 0.0f);
+        HUD->GameWon(Player->Score);
+        return;
+    }
+
     if(this->LightOn) {
         this->SpriteShader.SetInteger("LightOn", 1);
     } else {
@@ -126,7 +152,9 @@ void Game::Render() {
         Wall.Draw(*Renderer);
     }
     // this->ExitDoor->Rotation = 100;
-    this->ExitDoor->Draw(*Renderer);
+    if(!this->PowerUpButtonPressed || !this->EnemyButtonPressed) {
+        this->ExitDoor->Draw(*Renderer);
+    }
 
     for(GameObject& item: this->PowerUps) {
         if(item.Destroyed == false) {
@@ -164,6 +192,9 @@ bool Game::CollisionWithDoor() {
     return CheckCollision(*Player, *this->ExitDoor);
 }
 void Game::ProcessInput(float dt) {
+    if(this->GameLost || this->GameWon) {
+        return;
+    }
     glm::vec2 Direction1 = Player->Position - glm::vec2(this->cameraPos.x, this->cameraPos.y);
     float Distance1 = glm::length(Direction1);
     float velocity = PLAYER_VELOCITY * dt;
@@ -279,9 +310,13 @@ void Game::ProcessInput(float dt) {
             Player->Score += item.Score;
         }
     }
+    
 }
 
 void Game::Update(float dt) {
+    if(this->GameLost || this->GameWon) {
+        return;
+    }
     if(Enemy->Alive == true) {
         if(glfwGetTime() - Enemy->LastAttack >= GapBetweenAttacks && CheckCollision(*Enemy, *Player)) {
             Enemy->LastAttack = glfwGetTime();
@@ -293,10 +328,33 @@ void Game::Update(float dt) {
             Player->Lives -= 1;
         }
     }
+    
+    // check if player reached the exit
+    pair<int, int> CurCell = make_pair(Player->Position.x / this->WallSize, Player->Position.y / this->WallSize);
+    pair<int, int> ExitCell = make_pair(this->ExitDoor->Position.x / this->WallSize, this->ExitDoor->Position.y / this->WallSize);
+    if(CurCell == ExitCell) {
+        this->GameWon = true;
+        return;
+    }
+    
+
     float CurTime = glfwGetTime();
     if(CurTime - LastTick >= 1) {
         LastTick = CurTime;
         this->TimeLeft -= 1;
+    }
+    // check if time over
+    if(this->TimeLeft <= 0 || Player->Lives <= 0) {
+        this->GameLost = true;
+        return;
+    }
+    if(!this->LightOn) {
+        if(CurTime - this->LightScoreTimeLast >= 1) {
+            this->LightScoreTimeLast = CurTime;
+            Player->Score += 1;
+        }
+    } else {
+        this->LightScoreTimeLast = CurTime;
     }
 }
 

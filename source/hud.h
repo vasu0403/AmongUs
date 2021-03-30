@@ -21,6 +21,8 @@ class Hud {
     Shader TextShader;
     Hud(Shader &textShader);
     void Display(int LivesLeft, bool PowerUpTask, bool EnemyTask, bool Light, int TimeLeft, int score);
+    void GameLost();
+    void GameWon(int Score);
     private:
     void RenderText(std::string text, float x, float y, float scale, glm::vec3 color);
 };

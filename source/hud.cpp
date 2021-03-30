@@ -151,3 +151,11 @@ void Hud::RenderText(std::string text, float x, float y, float scale, glm::vec3 
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+void Hud::GameLost() {
+    RenderText("YOU LOST", 530.0f, 450.0f, 3.0f, glm::vec3(0.8f, 0.8f, 0.8f));
+}
+
+void Hud::GameWon(int score) {
+    RenderText("VICTORY !!", 530.0f, 450.0f, 3.0f, glm::vec3(0.8f, 0.8f, 0.8f));
+}
