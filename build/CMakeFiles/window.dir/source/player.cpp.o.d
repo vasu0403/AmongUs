@@ -431,4 +431,5 @@ CMakeFiles/window.dir/source/player.cpp.o: \
  /usr/include/c++/7/unordered_map /usr/include/c++/7/bits/hashtable.h \
  /usr/include/c++/7/bits/hashtable_policy.h \
  /usr/include/c++/7/bits/unordered_map.h /usr/include/c++/7/unordered_set \
- /usr/include/c++/7/bits/unordered_set.h
+ /usr/include/c++/7/bits/unordered_set.h \
+ /home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/libraries/glfw/include/GLFW/glfw3.h

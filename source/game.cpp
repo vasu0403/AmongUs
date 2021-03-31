@@ -10,6 +10,9 @@ SpriteRenderer  *Renderer;
 PlayerObject *Player;
 EnemyObject *Enemy;
 
+float LastCoinTime = glfwGetTime();
+int CoinFrameIndex = 0;
+
 bool CheckCollision(GameObject &one, GameObject &two) {
     // collision x-axis?
     bool collisionX = one.Position.x + one.Size.x >= two.Position.x &&
@@ -48,7 +51,8 @@ void Game::LoadShaders() {
 
 }
 void Game::LoadTextures() {
-    ResourceManager::LoadTexture("../assets/textures/player3.png", true, "player");
+    // ResourceManager::LoadTexture("../assets/textures/player_right.png", true, "player_right");
+    // ResourceManager::LoadTexture("../assets/textures/player_left.png", true, "player_left");
     ResourceManager::LoadTexture("../assets/textures/background4.jpg", false, "background");
     ResourceManager::LoadTexture("../assets/textures/wall3.jpg", false, "wall");
     ResourceManager::LoadTexture("../assets/textures/button_unpressed_1.png", true, "button1");
@@ -60,6 +64,9 @@ void Game::LoadTextures() {
     ResourceManager::LoadTexture("../assets/textures/coin1.png", true, "coin");
     ResourceManager::LoadTexture("../assets/textures/bomb1.png", true, "bomb");
     ResourceManager::LoadTexture("../assets/textures/lost3.png", true, "lost_screen");
+    ResourceManager::LoadTexture("../assets/textures/coins_sheet3.png", true, "coin_sheet");
+    ResourceManager::LoadTexture("../assets/textures/player_sprite_sheet_right.png", true, "player_sheet_right");
+    ResourceManager::LoadTexture("../assets/textures/player_sprite_sheet_left.png", true, "player_sheet_left");
 }
 void Game::LoadLevel() {
     
@@ -83,7 +90,7 @@ void Game::LoadLevel() {
     glm::vec2 EnemyPos = glm::vec2((ExitDoorPos.first - 1) * this->WallSize + (this->WallSize - PLAYER_SIZE.x) / 2,ExitDoorPos.second * this->WallSize + (this->WallSize - PLAYER_SIZE.y) / 2);
     glm::vec2 PlayerPos = glm::vec2(0.0f + (this->WallSize - PLAYER_SIZE.x) / 2, this->WallSize  + (this ->WallSize - PLAYER_SIZE.y) / 2);
 
-    Player = new PlayerObject(PlayerPos, PLAYER_SIZE, ResourceManager::GetTexture("player"));
+    Player = new PlayerObject(PlayerPos, PLAYER_SIZE, ResourceManager::GetTexture("player_sheet_right"));
     Enemy = new EnemyObject(EnemyPos, PLAYER_SIZE, ResourceManager::GetTexture("enemy"), make_pair(ExitDoorPos.second, ExitDoorPos.first - 1), this->Vis, this->Height / this->WallSize, this->Width / this->WallSize);
 
     HUD = new Hud(this->TextShader);
@@ -156,13 +163,23 @@ void Game::Render() {
         this->ExitDoor->Draw(*Renderer);
     }
 
+    float CurTime = glfwGetTime();
+    if(CurTime - LastCoinTime >= FrameSpeed) {
+        CoinFrameIndex = (1 + CoinFrameIndex) % 6;
+        LastCoinTime = CurTime;
+    }
+    float CoinStart = 0 + (1.0 / CoinFrames) * CoinFrameIndex;
+    float CoinEnd = (1.0 / CoinFrames) + (1.0 / CoinFrames) * CoinFrameIndex;
     for(GameObject& item: this->PowerUps) {
         if(item.Destroyed == false) {
-            item.Draw(*Renderer);
+            if(item.Score > 0) {
+                item.DrawSheet(*Renderer, CoinStart, CoinEnd);
+            } else {
+                item.Draw(*Renderer);
+            }
         }
     }
-    
-    Player->Draw(*Renderer);
+    Player->DrawSheet(*Renderer, PlayerFramePositions[Player->FrameIndex].first, PlayerFramePositions[Player->FrameIndex].second, true);
 
     if(Enemy->Alive == true) {
         Enemy->Draw(*Renderer);
@@ -204,19 +221,32 @@ void Game::ProcessInput(float dt) {
         this->LightOn = !this->LightOn;
     }
     if(this->Keys[GLFW_KEY_D]) {
+        Player->Sprite = ResourceManager::GetTexture("player_sheet_right");
         if(Player->Position.x <= this->Width - Player->Size.x) {
             Player->Position.x += velocity;
             if(CollisionWithWall() || CollisionWithDoor()) {
                 Player->Position.x -= velocity;
+            } else {
+                Player->Ticks = (Player->Ticks + 1) % (Player->FrameSpeed);
+                if(Player->Ticks == 0) {
+                    Player->FrameIndex = (Player->FrameIndex + 1) % 4;
+                }
+
             }
         } else {
             Player->Position.x = this->Width - Player->Size.x;
         }
     } else if(this->Keys[GLFW_KEY_A]) {
+        Player->Sprite = ResourceManager::GetTexture("player_sheet_left");
         if(Player->Position.x >= 0.0f) {
             Player->Position.x -= velocity;
             if(CollisionWithWall() || CollisionWithDoor()) {
                 Player->Position.x += velocity;
+            } else {
+                Player->Ticks = (Player->Ticks + 1) % (Player->FrameSpeed);
+                if(Player->Ticks == 0) {
+                    Player->FrameIndex = (Player->FrameIndex + 1) % 4;
+                }
             }
         } else {
             Player->Position.x = 0.0f;
@@ -289,7 +319,7 @@ void Game::ProcessInput(float dt) {
         for(int i = 0; i < 10; i++) {
             glm::vec2 Size = glm::vec2(this->WallSize - 14, this->WallSize - 14);
             glm::vec2 Position = glm::vec2(7 + this->PlayArea[i].first, 7 + this->PlayArea[i].second);
-            GameObject NewCoin = GameObject(Position, Size, ResourceManager::GetTexture("coin"));
+            GameObject NewCoin = GameObject(Position, Size, ResourceManager::GetTexture("coin_sheet"));
             NewCoin.Score = 1;
             PowerUps.push_back(NewCoin);
         }

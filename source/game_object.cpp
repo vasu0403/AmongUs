@@ -7,3 +7,11 @@ GameObject::GameObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, glm::vec
 void GameObject::Draw(SpriteRenderer &renderer) {
     renderer.drawSprite(this->Sprite, this->Position, this->Size, this->Rotation, this->Color);
 }
+
+void GameObject::DrawSheet(SpriteRenderer &renderer, float start, float end, bool vertical) {
+    if(vertical) {
+        renderer.drawSpriteSheetVertical(this->Sprite, this->Position, this->Size, this->Rotation, start, end, this->Color);
+        return;
+    }
+    renderer.drawSpriteSheet(this->Sprite, this->Position, this->Size, this->Rotation, start, end, this->Color);
+}
