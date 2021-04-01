@@ -9,6 +9,7 @@ using namespace std;
 SpriteRenderer  *Renderer;
 PlayerObject *Player;
 EnemyObject *Enemy;
+float LastDoorSound = glfwGetTime();
 
 float LastCoinTime = glfwGetTime();
 int CoinFrameIndex = 0;
@@ -61,12 +62,12 @@ void Game::LoadTextures() {
     ResourceManager::LoadTexture("../assets/textures/button_pressed_2.png", true, "button_pressed2");
     ResourceManager::LoadTexture("../assets/textures/door_closed.png", true, "door_closed");
     ResourceManager::LoadTexture("../assets/textures/enemy1.png", true, "enemy");
-    ResourceManager::LoadTexture("../assets/textures/coin1.png", true, "coin");
     ResourceManager::LoadTexture("../assets/textures/bomb1.png", true, "bomb");
     ResourceManager::LoadTexture("../assets/textures/lost3.png", true, "lost_screen");
     ResourceManager::LoadTexture("../assets/textures/coins_sheet3.png", true, "coin_sheet");
     ResourceManager::LoadTexture("../assets/textures/player_sprite_sheet_right.png", true, "player_sheet_right");
     ResourceManager::LoadTexture("../assets/textures/player_sprite_sheet_left.png", true, "player_sheet_left");
+    ResourceManager::LoadTexture("../assets/textures/player_back.png", true, "player_back");
 }
 void Game::LoadLevel() {
     
@@ -132,7 +133,7 @@ void Game::Render() {
         float AspectRatio = 502.0f / 891.0f;
         float Width = 880.0f;
         Renderer->drawSprite(ResourceManager::GetTexture("lost_screen"), glm::vec2(0.0f, 0.0f), glm::vec2(Width, Width * AspectRatio), 0.0f);
-        HUD->GameLost();
+        HUD->GameLost(Player->Score);
         // HUD->Display(Player->Lives, this->PowerUpButtonPressed, this->EnemyButtonPressed, this->LightOn, this->TimeLeft, Player->Score);
         return;
     }
@@ -179,7 +180,11 @@ void Game::Render() {
             }
         }
     }
-    Player->DrawSheet(*Renderer, PlayerFramePositions[Player->FrameIndex].first, PlayerFramePositions[Player->FrameIndex].second, true);
+    if(Player->Animation) {
+        Player->DrawSheet(*Renderer, PlayerFramePositions[Player->FrameIndex].first, PlayerFramePositions[Player->FrameIndex].second, true);
+    } else {
+        Player->Draw(*Renderer);
+    }
 
     if(Enemy->Alive == true) {
         Enemy->Draw(*Renderer);
@@ -202,7 +207,16 @@ bool Game::CollisionWithDoor() {
     if(this->ExitDoor->Destroyed == true) {
         return false;
     }
-    return CheckCollision(*Player, *this->ExitDoor);
+    bool result = CheckCollision(*Player, *this->ExitDoor);
+    if(result) {
+        float CurTime = glfwGetTime();
+        if(CurTime - LastDoorSound >= 1.0f) {
+            LastDoorSound = CurTime;
+            system("aplay ../assets/sounds/locked_door.wav &");
+        }
+        return true;
+    }
+    return false;
 }
 void Game::ProcessInput(float dt) {
     if(this->GameLost || this->GameWon) {
@@ -219,8 +233,11 @@ void Game::ProcessInput(float dt) {
     } else if(this->LightKeyUnpressed == true) {
         this->LightKeyUnpressed = false;
         this->LightOn = !this->LightOn;
+        system("aplay ../assets/sounds/torch.wav &");
     }
+    float CurTime = glfwGetTime();
     if(this->Keys[GLFW_KEY_D]) {
+        Player->Animation = true;
         Player->Sprite = ResourceManager::GetTexture("player_sheet_right");
         if(Player->Position.x <= this->Width - Player->Size.x) {
             Player->Position.x += velocity;
@@ -231,12 +248,12 @@ void Game::ProcessInput(float dt) {
                 if(Player->Ticks == 0) {
                     Player->FrameIndex = (Player->FrameIndex + 1) % 4;
                 }
-
             }
         } else {
             Player->Position.x = this->Width - Player->Size.x;
         }
     } else if(this->Keys[GLFW_KEY_A]) {
+        Player->Animation = true;
         Player->Sprite = ResourceManager::GetTexture("player_sheet_left");
         if(Player->Position.x >= 0.0f) {
             Player->Position.x -= velocity;
@@ -252,6 +269,8 @@ void Game::ProcessInput(float dt) {
             Player->Position.x = 0.0f;
         }
     } else if(this->Keys[GLFW_KEY_W]) {
+        Player->Animation = false;
+        Player->Sprite = ResourceManager::GetTexture("player_back");
         if(Player-> Position.y >= 0.0f) {
             Player->Position.y -= velocity;
             if(CollisionWithWall() || CollisionWithDoor()) {
@@ -261,6 +280,8 @@ void Game::ProcessInput(float dt) {
             Player->Position.y = 0.0f;
         }
     } else if(this->Keys[GLFW_KEY_S]) {
+        Player->Animation = true;
+        Player->Sprite = ResourceManager::GetTexture("player_sheet_right");
         if(Player->Position.y <= this->Height - Player->Size.y) {
             Player->Position.y += velocity;
             if(CollisionWithWall() || CollisionWithDoor()) {
@@ -298,12 +319,13 @@ void Game::ProcessInput(float dt) {
         this->EnemyButton->Size.y -= 7.0f;
         this->EnemyButton->Position.y += 7.0f;
         Enemy->Alive = false;
+        system("aplay ../assets/sounds/button.wav &");
 
         // open the door if both tasks are completed
         if(this->PowerUpButtonPressed == true) {
+            system("aplay ../assets/sounds/door_opening.wav &");
             this->ExitDoor->Destroyed = true;
         }
-        system("aplay ../assets/sounds/button.wav &");
     }
     if(this->PowerUpButtonPressed == false && CheckCollision(*Player, *this->PowerUpButton)) {
         this->PowerUpButtonPressed = true;
@@ -320,14 +342,14 @@ void Game::ProcessInput(float dt) {
             glm::vec2 Size = glm::vec2(this->WallSize - 14, this->WallSize - 14);
             glm::vec2 Position = glm::vec2(7 + this->PlayArea[i].first, 7 + this->PlayArea[i].second);
             GameObject NewCoin = GameObject(Position, Size, ResourceManager::GetTexture("coin_sheet"));
-            NewCoin.Score = 1;
+            NewCoin.Score = 10;
             PowerUps.push_back(NewCoin);
         }
         for(int i = 10; i < 20; i++) {
             glm::vec2 Size = glm::vec2(this->WallSize - 14, this->WallSize - 14);
             glm::vec2 Position = glm::vec2(7 + this->PlayArea[i].first, 7 + this->PlayArea[i].second);
             GameObject NewBomb = GameObject(Position, Size, ResourceManager::GetTexture("bomb"));
-            NewBomb.Score = -1;
+            NewBomb.Score = -10;
             PowerUps.push_back(NewBomb);
         }
         system("aplay ../assets/sounds/button.wav &");
@@ -338,6 +360,8 @@ void Game::ProcessInput(float dt) {
             Player->Score += item.Score;
             if(item.Score > 0) {
                 system("aplay ../assets/sounds/coin.wav &");
+            } else {
+                system("aplay ../assets/sounds/explosion.wav &");
             }
         }
     }
@@ -366,6 +390,7 @@ void Game::Update(float dt) {
     pair<int, int> CurCell = make_pair(Player->Position.x / this->WallSize, Player->Position.y / this->WallSize);
     pair<int, int> ExitCell = make_pair(this->ExitDoor->Position.x / this->WallSize, this->ExitDoor->Position.y / this->WallSize);
     if(CurCell == ExitCell) {
+        system("aplay ../assets/sounds/win.wav &");
         this->GameWon = true;
         return;
     }
@@ -378,6 +403,7 @@ void Game::Update(float dt) {
     }
     // check if time over
     if(this->TimeLeft <= 0 || Player->Lives <= 0) {
+        system("aplay ../assets/sounds/lost.wav &");
         this->GameLost = true;
         return;
     }

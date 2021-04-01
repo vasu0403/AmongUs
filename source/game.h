@@ -14,7 +14,7 @@ const float AspectRatio = 542.0 / 480.0;   // Height / Width
 const float Width = 30.0f;
 // const float Width = 100.0f;
 const glm::vec2 PLAYER_SIZE(Width, Width * AspectRatio);
-const float PLAYER_VELOCITY(300.0f);
+const float PLAYER_VELOCITY(250.0f);
 const float GapBetweenAttacks = 1;
 
 const std::vector<std::pair<float, float>> PlayerFramePositions = {{0.0, 0.20}, {0.30, 0.50}, {0.57, 0.75}, {0.80, 1.0}};

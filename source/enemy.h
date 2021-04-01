@@ -15,7 +15,6 @@ class EnemyObject : public GameObject {
     EnemyObject();
     EnemyObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, std::pair<int, int> goToCell, const std::vector<std::vector<bool>> &Allowed, int N, int M,
         glm::vec3 color = glm::vec3(1.0f), glm::vec2 velocity = glm::vec2(0.0f, 0.0f));
-    // std::pair<int, int> GoToDirection(const std::vector<std::vector<bool>> &Allowed, int N, int M, std::pair<int, int> PlayerIndex, std::pair<int, int> EnemyIndex);
     void Draw(SpriteRenderer &renderer);
 
     private:
