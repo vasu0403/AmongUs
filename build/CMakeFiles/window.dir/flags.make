@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DGLFW_INCLUDE_NONE
 
-CXX_INCLUDES = -I/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source -I/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/libraries/glfw/include -I/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/libraries/glad/include
+CXX_INCLUDES = -I/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/src -I/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/libraries/glfw/include -I/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/libraries/glad/include
 
 CXX_FLAGS = -std=gnu++11
 

@@ -8,16 +8,16 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/enemy.cpp" "CMakeFiles/window.dir/source/enemy.cpp.o" "gcc" "CMakeFiles/window.dir/source/enemy.cpp.o.d"
-  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/game.cpp" "CMakeFiles/window.dir/source/game.cpp.o" "gcc" "CMakeFiles/window.dir/source/game.cpp.o.d"
-  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/game_object.cpp" "CMakeFiles/window.dir/source/game_object.cpp.o" "gcc" "CMakeFiles/window.dir/source/game_object.cpp.o.d"
-  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/hud.cpp" "CMakeFiles/window.dir/source/hud.cpp.o" "gcc" "CMakeFiles/window.dir/source/hud.cpp.o.d"
-  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/main.cpp" "CMakeFiles/window.dir/source/main.cpp.o" "gcc" "CMakeFiles/window.dir/source/main.cpp.o.d"
-  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/player.cpp" "CMakeFiles/window.dir/source/player.cpp.o" "gcc" "CMakeFiles/window.dir/source/player.cpp.o.d"
-  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/resource_manager.cpp" "CMakeFiles/window.dir/source/resource_manager.cpp.o" "gcc" "CMakeFiles/window.dir/source/resource_manager.cpp.o.d"
-  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/shader.cpp" "CMakeFiles/window.dir/source/shader.cpp.o" "gcc" "CMakeFiles/window.dir/source/shader.cpp.o.d"
-  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/sprite_renderer.cpp" "CMakeFiles/window.dir/source/sprite_renderer.cpp.o" "gcc" "CMakeFiles/window.dir/source/sprite_renderer.cpp.o.d"
-  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/source/texture.cpp" "CMakeFiles/window.dir/source/texture.cpp.o" "gcc" "CMakeFiles/window.dir/source/texture.cpp.o.d"
+  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/src/enemy.cpp" "CMakeFiles/window.dir/src/enemy.cpp.o" "gcc" "CMakeFiles/window.dir/src/enemy.cpp.o.d"
+  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/src/game.cpp" "CMakeFiles/window.dir/src/game.cpp.o" "gcc" "CMakeFiles/window.dir/src/game.cpp.o.d"
+  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/src/game_object.cpp" "CMakeFiles/window.dir/src/game_object.cpp.o" "gcc" "CMakeFiles/window.dir/src/game_object.cpp.o.d"
+  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/src/hud.cpp" "CMakeFiles/window.dir/src/hud.cpp.o" "gcc" "CMakeFiles/window.dir/src/hud.cpp.o.d"
+  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/src/main.cpp" "CMakeFiles/window.dir/src/main.cpp.o" "gcc" "CMakeFiles/window.dir/src/main.cpp.o.d"
+  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/src/player.cpp" "CMakeFiles/window.dir/src/player.cpp.o" "gcc" "CMakeFiles/window.dir/src/player.cpp.o.d"
+  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/src/resource_manager.cpp" "CMakeFiles/window.dir/src/resource_manager.cpp.o" "gcc" "CMakeFiles/window.dir/src/resource_manager.cpp.o.d"
+  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/src/shader.cpp" "CMakeFiles/window.dir/src/shader.cpp.o" "gcc" "CMakeFiles/window.dir/src/shader.cpp.o.d"
+  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/src/sprite_renderer.cpp" "CMakeFiles/window.dir/src/sprite_renderer.cpp.o" "gcc" "CMakeFiles/window.dir/src/sprite_renderer.cpp.o.d"
+  "/home/vasu/college/3rd_year/6th_sem/Computer_Graphics/A1/src/texture.cpp" "CMakeFiles/window.dir/src/texture.cpp.o" "gcc" "CMakeFiles/window.dir/src/texture.cpp.o.d"
   )
 
 # Targets to which this target links.

@@ -179,245 +179,245 @@ libraries/glad/src/glad.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/glad.dir/build.make CMakeFiles/glad.dir/libraries/glad/src/glad.c.s
 .PHONY : libraries/glad/src/glad.c.s
 
-source/enemy.o: source/enemy.cpp.o
-.PHONY : source/enemy.o
+src/enemy.o: src/enemy.cpp.o
+.PHONY : src/enemy.o
 
 # target to build an object file
-source/enemy.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/enemy.cpp.o
-.PHONY : source/enemy.cpp.o
+src/enemy.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/enemy.cpp.o
+.PHONY : src/enemy.cpp.o
 
-source/enemy.i: source/enemy.cpp.i
-.PHONY : source/enemy.i
+src/enemy.i: src/enemy.cpp.i
+.PHONY : src/enemy.i
 
 # target to preprocess a source file
-source/enemy.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/enemy.cpp.i
-.PHONY : source/enemy.cpp.i
+src/enemy.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/enemy.cpp.i
+.PHONY : src/enemy.cpp.i
 
-source/enemy.s: source/enemy.cpp.s
-.PHONY : source/enemy.s
+src/enemy.s: src/enemy.cpp.s
+.PHONY : src/enemy.s
 
 # target to generate assembly for a file
-source/enemy.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/enemy.cpp.s
-.PHONY : source/enemy.cpp.s
+src/enemy.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/enemy.cpp.s
+.PHONY : src/enemy.cpp.s
 
-source/game.o: source/game.cpp.o
-.PHONY : source/game.o
+src/game.o: src/game.cpp.o
+.PHONY : src/game.o
 
 # target to build an object file
-source/game.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/game.cpp.o
-.PHONY : source/game.cpp.o
+src/game.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/game.cpp.o
+.PHONY : src/game.cpp.o
 
-source/game.i: source/game.cpp.i
-.PHONY : source/game.i
+src/game.i: src/game.cpp.i
+.PHONY : src/game.i
 
 # target to preprocess a source file
-source/game.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/game.cpp.i
-.PHONY : source/game.cpp.i
+src/game.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/game.cpp.i
+.PHONY : src/game.cpp.i
 
-source/game.s: source/game.cpp.s
-.PHONY : source/game.s
+src/game.s: src/game.cpp.s
+.PHONY : src/game.s
 
 # target to generate assembly for a file
-source/game.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/game.cpp.s
-.PHONY : source/game.cpp.s
+src/game.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/game.cpp.s
+.PHONY : src/game.cpp.s
 
-source/game_object.o: source/game_object.cpp.o
-.PHONY : source/game_object.o
+src/game_object.o: src/game_object.cpp.o
+.PHONY : src/game_object.o
 
 # target to build an object file
-source/game_object.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/game_object.cpp.o
-.PHONY : source/game_object.cpp.o
+src/game_object.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/game_object.cpp.o
+.PHONY : src/game_object.cpp.o
 
-source/game_object.i: source/game_object.cpp.i
-.PHONY : source/game_object.i
+src/game_object.i: src/game_object.cpp.i
+.PHONY : src/game_object.i
 
 # target to preprocess a source file
-source/game_object.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/game_object.cpp.i
-.PHONY : source/game_object.cpp.i
+src/game_object.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/game_object.cpp.i
+.PHONY : src/game_object.cpp.i
 
-source/game_object.s: source/game_object.cpp.s
-.PHONY : source/game_object.s
+src/game_object.s: src/game_object.cpp.s
+.PHONY : src/game_object.s
 
 # target to generate assembly for a file
-source/game_object.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/game_object.cpp.s
-.PHONY : source/game_object.cpp.s
+src/game_object.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/game_object.cpp.s
+.PHONY : src/game_object.cpp.s
 
-source/hud.o: source/hud.cpp.o
-.PHONY : source/hud.o
+src/hud.o: src/hud.cpp.o
+.PHONY : src/hud.o
 
 # target to build an object file
-source/hud.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/hud.cpp.o
-.PHONY : source/hud.cpp.o
+src/hud.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/hud.cpp.o
+.PHONY : src/hud.cpp.o
 
-source/hud.i: source/hud.cpp.i
-.PHONY : source/hud.i
+src/hud.i: src/hud.cpp.i
+.PHONY : src/hud.i
 
 # target to preprocess a source file
-source/hud.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/hud.cpp.i
-.PHONY : source/hud.cpp.i
+src/hud.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/hud.cpp.i
+.PHONY : src/hud.cpp.i
 
-source/hud.s: source/hud.cpp.s
-.PHONY : source/hud.s
+src/hud.s: src/hud.cpp.s
+.PHONY : src/hud.s
 
 # target to generate assembly for a file
-source/hud.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/hud.cpp.s
-.PHONY : source/hud.cpp.s
+src/hud.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/hud.cpp.s
+.PHONY : src/hud.cpp.s
 
-source/main.o: source/main.cpp.o
-.PHONY : source/main.o
+src/main.o: src/main.cpp.o
+.PHONY : src/main.o
 
 # target to build an object file
-source/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/main.cpp.o
-.PHONY : source/main.cpp.o
+src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
 
-source/main.i: source/main.cpp.i
-.PHONY : source/main.i
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
 
 # target to preprocess a source file
-source/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/main.cpp.i
-.PHONY : source/main.cpp.i
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
 
-source/main.s: source/main.cpp.s
-.PHONY : source/main.s
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
 
 # target to generate assembly for a file
-source/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/main.cpp.s
-.PHONY : source/main.cpp.s
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
-source/player.o: source/player.cpp.o
-.PHONY : source/player.o
+src/player.o: src/player.cpp.o
+.PHONY : src/player.o
 
 # target to build an object file
-source/player.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/player.cpp.o
-.PHONY : source/player.cpp.o
+src/player.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/player.cpp.o
+.PHONY : src/player.cpp.o
 
-source/player.i: source/player.cpp.i
-.PHONY : source/player.i
+src/player.i: src/player.cpp.i
+.PHONY : src/player.i
 
 # target to preprocess a source file
-source/player.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/player.cpp.i
-.PHONY : source/player.cpp.i
+src/player.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/player.cpp.i
+.PHONY : src/player.cpp.i
 
-source/player.s: source/player.cpp.s
-.PHONY : source/player.s
+src/player.s: src/player.cpp.s
+.PHONY : src/player.s
 
 # target to generate assembly for a file
-source/player.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/player.cpp.s
-.PHONY : source/player.cpp.s
+src/player.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/player.cpp.s
+.PHONY : src/player.cpp.s
 
-source/resource_manager.o: source/resource_manager.cpp.o
-.PHONY : source/resource_manager.o
+src/resource_manager.o: src/resource_manager.cpp.o
+.PHONY : src/resource_manager.o
 
 # target to build an object file
-source/resource_manager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/resource_manager.cpp.o
-.PHONY : source/resource_manager.cpp.o
+src/resource_manager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/resource_manager.cpp.o
+.PHONY : src/resource_manager.cpp.o
 
-source/resource_manager.i: source/resource_manager.cpp.i
-.PHONY : source/resource_manager.i
+src/resource_manager.i: src/resource_manager.cpp.i
+.PHONY : src/resource_manager.i
 
 # target to preprocess a source file
-source/resource_manager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/resource_manager.cpp.i
-.PHONY : source/resource_manager.cpp.i
+src/resource_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/resource_manager.cpp.i
+.PHONY : src/resource_manager.cpp.i
 
-source/resource_manager.s: source/resource_manager.cpp.s
-.PHONY : source/resource_manager.s
+src/resource_manager.s: src/resource_manager.cpp.s
+.PHONY : src/resource_manager.s
 
 # target to generate assembly for a file
-source/resource_manager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/resource_manager.cpp.s
-.PHONY : source/resource_manager.cpp.s
+src/resource_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/resource_manager.cpp.s
+.PHONY : src/resource_manager.cpp.s
 
-source/shader.o: source/shader.cpp.o
-.PHONY : source/shader.o
+src/shader.o: src/shader.cpp.o
+.PHONY : src/shader.o
 
 # target to build an object file
-source/shader.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/shader.cpp.o
-.PHONY : source/shader.cpp.o
+src/shader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/shader.cpp.o
+.PHONY : src/shader.cpp.o
 
-source/shader.i: source/shader.cpp.i
-.PHONY : source/shader.i
+src/shader.i: src/shader.cpp.i
+.PHONY : src/shader.i
 
 # target to preprocess a source file
-source/shader.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/shader.cpp.i
-.PHONY : source/shader.cpp.i
+src/shader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/shader.cpp.i
+.PHONY : src/shader.cpp.i
 
-source/shader.s: source/shader.cpp.s
-.PHONY : source/shader.s
+src/shader.s: src/shader.cpp.s
+.PHONY : src/shader.s
 
 # target to generate assembly for a file
-source/shader.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/shader.cpp.s
-.PHONY : source/shader.cpp.s
+src/shader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/shader.cpp.s
+.PHONY : src/shader.cpp.s
 
-source/sprite_renderer.o: source/sprite_renderer.cpp.o
-.PHONY : source/sprite_renderer.o
+src/sprite_renderer.o: src/sprite_renderer.cpp.o
+.PHONY : src/sprite_renderer.o
 
 # target to build an object file
-source/sprite_renderer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/sprite_renderer.cpp.o
-.PHONY : source/sprite_renderer.cpp.o
+src/sprite_renderer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/sprite_renderer.cpp.o
+.PHONY : src/sprite_renderer.cpp.o
 
-source/sprite_renderer.i: source/sprite_renderer.cpp.i
-.PHONY : source/sprite_renderer.i
+src/sprite_renderer.i: src/sprite_renderer.cpp.i
+.PHONY : src/sprite_renderer.i
 
 # target to preprocess a source file
-source/sprite_renderer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/sprite_renderer.cpp.i
-.PHONY : source/sprite_renderer.cpp.i
+src/sprite_renderer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/sprite_renderer.cpp.i
+.PHONY : src/sprite_renderer.cpp.i
 
-source/sprite_renderer.s: source/sprite_renderer.cpp.s
-.PHONY : source/sprite_renderer.s
+src/sprite_renderer.s: src/sprite_renderer.cpp.s
+.PHONY : src/sprite_renderer.s
 
 # target to generate assembly for a file
-source/sprite_renderer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/sprite_renderer.cpp.s
-.PHONY : source/sprite_renderer.cpp.s
+src/sprite_renderer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/sprite_renderer.cpp.s
+.PHONY : src/sprite_renderer.cpp.s
 
-source/texture.o: source/texture.cpp.o
-.PHONY : source/texture.o
+src/texture.o: src/texture.cpp.o
+.PHONY : src/texture.o
 
 # target to build an object file
-source/texture.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/texture.cpp.o
-.PHONY : source/texture.cpp.o
+src/texture.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/texture.cpp.o
+.PHONY : src/texture.cpp.o
 
-source/texture.i: source/texture.cpp.i
-.PHONY : source/texture.i
+src/texture.i: src/texture.cpp.i
+.PHONY : src/texture.i
 
 # target to preprocess a source file
-source/texture.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/texture.cpp.i
-.PHONY : source/texture.cpp.i
+src/texture.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/texture.cpp.i
+.PHONY : src/texture.cpp.i
 
-source/texture.s: source/texture.cpp.s
-.PHONY : source/texture.s
+src/texture.s: src/texture.cpp.s
+.PHONY : src/texture.s
 
 # target to generate assembly for a file
-source/texture.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/source/texture.cpp.s
-.PHONY : source/texture.cpp.s
+src/texture.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/window.dir/build.make CMakeFiles/window.dir/src/texture.cpp.s
+.PHONY : src/texture.cpp.s
 
 # Help Target
 help:
@@ -433,36 +433,36 @@ help:
 	@echo "... libraries/glad/src/glad.o"
 	@echo "... libraries/glad/src/glad.i"
 	@echo "... libraries/glad/src/glad.s"
-	@echo "... source/enemy.o"
-	@echo "... source/enemy.i"
-	@echo "... source/enemy.s"
-	@echo "... source/game.o"
-	@echo "... source/game.i"
-	@echo "... source/game.s"
-	@echo "... source/game_object.o"
-	@echo "... source/game_object.i"
-	@echo "... source/game_object.s"
-	@echo "... source/hud.o"
-	@echo "... source/hud.i"
-	@echo "... source/hud.s"
-	@echo "... source/main.o"
-	@echo "... source/main.i"
-	@echo "... source/main.s"
-	@echo "... source/player.o"
-	@echo "... source/player.i"
-	@echo "... source/player.s"
-	@echo "... source/resource_manager.o"
-	@echo "... source/resource_manager.i"
-	@echo "... source/resource_manager.s"
-	@echo "... source/shader.o"
-	@echo "... source/shader.i"
-	@echo "... source/shader.s"
-	@echo "... source/sprite_renderer.o"
-	@echo "... source/sprite_renderer.i"
-	@echo "... source/sprite_renderer.s"
-	@echo "... source/texture.o"
-	@echo "... source/texture.i"
-	@echo "... source/texture.s"
+	@echo "... src/enemy.o"
+	@echo "... src/enemy.i"
+	@echo "... src/enemy.s"
+	@echo "... src/game.o"
+	@echo "... src/game.i"
+	@echo "... src/game.s"
+	@echo "... src/game_object.o"
+	@echo "... src/game_object.i"
+	@echo "... src/game_object.s"
+	@echo "... src/hud.o"
+	@echo "... src/hud.i"
+	@echo "... src/hud.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
+	@echo "... src/player.o"
+	@echo "... src/player.i"
+	@echo "... src/player.s"
+	@echo "... src/resource_manager.o"
+	@echo "... src/resource_manager.i"
+	@echo "... src/resource_manager.s"
+	@echo "... src/shader.o"
+	@echo "... src/shader.i"
+	@echo "... src/shader.s"
+	@echo "... src/sprite_renderer.o"
+	@echo "... src/sprite_renderer.i"
+	@echo "... src/sprite_renderer.s"
+	@echo "... src/texture.o"
+	@echo "... src/texture.i"
+	@echo "... src/texture.s"
 .PHONY : help
 
 
